@@ -3,9 +3,8 @@ import React from "react";
 // import styled from "styled-components";
 import { ReactComponent as Logo } from "assets/icons/Logo.svg";
 // import Menu from "components/navbar/Menu";
-import { FlexBox, Button, Menu, CurrencyPicker } from "components/layouts/navbar/Navbar.styles";
+import { FlexBox, CategoryButton, Menu, CurrencyPicker, CategoryFilters, StyledCart } from "components/layouts/navbar/Navbar.styles";
 import { ReactComponent as Vector } from "assets/icons/Vector.svg";
-import { ReactComponent as Cart } from "assets/icons/Cart.svg";
 
 interface Props {
   /** Names of product categories */
@@ -14,28 +13,24 @@ interface Props {
 
 export default class Navbar extends React.Component<Props, {}> {
   renderCategoryFilters = () => {
-      return this.props.categories?.map((category: string, index: number) => (
-        <Button
-          key={index}
-        >
-          {category}
-        </Button>
-      ))
-    }   
+    return this.props.categories?.map((category: string, index: number) => (
+      <CategoryButton
+        key={index}
+      >
+        {category}
+      </CategoryButton>
+    ))
+  }
 
+  // TODO Add link to homeview for logo
   render() {
     return (
       <FlexBox>
-        <div>
-          {this.renderCategoryFilters()}
-        </div>
+        <CategoryFilters>{this.renderCategoryFilters()}</CategoryFilters>
         <Logo />
         <Menu>
-          <CurrencyPicker>
-            $
-            <Vector />
-          </CurrencyPicker>
-          <Cart />
+          <CurrencyPicker>$<Vector className="vector" /></CurrencyPicker>
+          <StyledCart />
         </Menu>
       </FlexBox>
     )
