@@ -53,7 +53,6 @@ class App extends React.Component<{}, State> {
   getAllProductsData = async () => {
     const response = await client.query({ query });
     const data = response.data.categories;
-    console.log(data);
     this.setState({
       productsData: data
     })
@@ -71,11 +70,11 @@ class App extends React.Component<{}, State> {
     this.getAllProductsData();
   }
 
+  // TODO research header types for SEO
   render() {
     return (
       <div className="App">
-        <header className="App-header">
-        </header>
+        <header className="App-header"></header>
         <Navbar categories={this.listCategories()} />
         <h1>Category name</h1>
         <ProductCard key={1} img="" price={20} name="Name" />
