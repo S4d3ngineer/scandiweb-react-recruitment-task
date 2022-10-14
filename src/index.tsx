@@ -13,6 +13,11 @@ const GlobalStyles = createGlobalStyle`
     padding: 0;
     font-family: 'Raleway';
   }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
 `
 
 export const client = new ApolloClient({
