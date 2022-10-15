@@ -4,6 +4,8 @@ import { client } from './index';
 import Navbar from 'components/layouts/navbar/Navbar.component';
 import ProductListing from 'views/ProductListing/ProductListing.component';
 import { ProductCardData } from 'views/ProductListing/ProductCardData';
+import { Route, Routes } from 'react-router-dom';
+import ProductDescription from 'views/ProductDescription/ProductDescription.component';
 
 // TODO move queries do separate file (/queries? /data/queries?)
 const query = gql`
@@ -11,6 +13,7 @@ const query = gql`
     categories {
       name
       products {
+        id
         name
         inStock
         gallery
@@ -30,6 +33,7 @@ interface CategoryData {
   name: string;
   products: [
     {
+      id: string;
       name: string;
       inStock: boolean;
       gallery: string;
@@ -59,8 +63,8 @@ class App extends React.Component<{}, State> {
     selectedCurrency: 'USD'
   }
 
-  // TODO add description to class methods
   // TODO handle errors
+  /** Fetches list of products for every category */
   getAllProductsData = async () => {
     const response = await client.query({ query });
     const data = response.data.categories;
@@ -70,6 +74,7 @@ class App extends React.Component<{}, State> {
     })
   }
 
+  /** Returns list of categories by parsing productsData from state */
   getCategoriesList = () => {
     if (this.state.productsData) {
       return this.state.productsData.map((category: CategoryData) => category.name);
@@ -79,12 +84,14 @@ class App extends React.Component<{}, State> {
   }
 
   // TODO declare interface for productList?
+  /** Returns list of products for selected category and with selected currency */
   getProductList = () => {
     if (this.state.productsData) {
       const selectedCatData = this.state.productsData.find(cat => cat.name === this.state.selectedCategory);
       const productList: ProductCardData[] | undefined = selectedCatData?.products.map(product => {
         const price = product.prices.find(price => price.currency.label === this.state.selectedCurrency)
         const cardData = {
+          id: product.id,
           name: product.name,
           image: product.gallery[0],
           price: {
@@ -104,13 +111,15 @@ class App extends React.Component<{}, State> {
     this.getAllProductsData();
   }
 
-  // TODO research header types for SEO
   render() {
     return (
       <div className="App">
         <header className="App-header"></header>
         <Navbar categories={this.getCategoriesList()} />
-        <ProductListing productList={this.getProductList()} />
+        <Routes>
+          <Route path="/" element={<ProductListing productList={this.getProductList()} />} />
+          <Route path="/product/:id" element={<ProductDescription />} />
+        </Routes>
       </div>
     );
   }

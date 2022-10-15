@@ -1,7 +1,9 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import * as S from './ProductCard.styles';
 
 interface Props {
+  id: string;
   key: number;
   img: string;
   name: string;
@@ -16,11 +18,11 @@ export default class ProductCard extends React.Component<Props> {
   render() {
     return (
       <S.Container>
-        <a href="/">
+        <Link to={`/product/${this.props.id}`}>
           <S.ProductPhoto src={this.props.img} alt="Product photo" className="product-photo"/>
-        </a>
+        </Link>
         <S.ProductInfo className="product-info">
-          <div><span><a href='/'>{this.props.name}</a></span></div>
+          <div><span><Link to={`/product/${this.props.id}`}>{this.props.name}</Link></span></div>
           <div><span>{this.props.price.symbol}{this.props.price.amount}</span></div>
         </S.ProductInfo>
       </S.Container>

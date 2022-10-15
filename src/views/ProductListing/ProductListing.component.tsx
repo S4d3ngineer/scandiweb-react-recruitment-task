@@ -12,7 +12,7 @@ export default class ProductListing extends React.Component<Props> {
   renderProductList() {
     console.log(this.props.productList);
     const productListContent = this.props.productList?.map((product, index) => 
-      <ProductCard img={product.image} name={product.name} price={product.price} key={index} />
+      <ProductCard id={product.id} img={product.image} name={product.name} price={product.price} key={index} />
     )
     return (
       <React.Fragment>
