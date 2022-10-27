@@ -20,6 +20,9 @@ export default class Navbar extends React.Component<Props, {}> {
   }
 
   render() {
+    if (!this.props.categories) {
+      return null;
+    }
     return (
       <S.FlexBox>
         <S.CategoryFilters>{this.renderCategoryFilters()}</S.CategoryFilters>
