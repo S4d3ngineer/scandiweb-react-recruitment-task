@@ -1,3 +1,4 @@
+// TODO order import statements
 import React from 'react';
 import { gql } from '@apollo/client';
 import { client } from './index';
@@ -9,7 +10,7 @@ import ProductDescription from 'views/ProductDescription/ProductDescription.comp
 
 // TODO move queries do separate file (/queries? /data/queries?)
 const query = gql`
-  query getCardInfo {
+  query getallProducts {
     categories {
       name
       products {
@@ -51,11 +52,12 @@ interface CategoryData {
 }
 
 interface State {
-  productsData: null | [CategoryData];
+  productsData: null | CategoryData[];
   selectedCategory: string;
   selectedCurrency: string;
 }
 
+// TODO try putting function inside productsData state property
 class App extends React.Component<{}, State> {
   state: State = {
     productsData: null,
@@ -68,7 +70,6 @@ class App extends React.Component<{}, State> {
   getAllProductsData = async () => {
     const response = await client.query({ query });
     const data = response.data.categories;
-    console.log(data);
     this.setState({
       productsData: data
     })

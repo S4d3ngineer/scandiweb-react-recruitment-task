@@ -9,7 +9,6 @@ interface Props {
 
 export default class Navbar extends React.Component<Props, {}> {
   renderCategoryFilters = () => {
-    console.log(this.props.categories);
     return this.props.categories?.map((category: string, index: number) => (
       <S.CategoryButton
         key={category + index}

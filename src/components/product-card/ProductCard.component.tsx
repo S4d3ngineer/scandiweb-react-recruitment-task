@@ -14,7 +14,6 @@ interface Props {
 }
 
 export default class ProductCard extends React.Component<Props> {
-  // TODO add coresponding routes for anchors
   render() {
     return (
       <S.Container>
