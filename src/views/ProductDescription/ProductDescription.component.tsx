@@ -5,8 +5,6 @@ import { productDataQuery } from './ProductDescription.queries';
 import { client } from 'index';
 import ProductData from './ProductData';
 
-// TODO move to separate file if needed
-
 interface WithParamsProps {
   params: Record<string, string>;
 }
@@ -57,7 +55,7 @@ class ProductDescription extends React.Component<Props, State> {
     })
   }
 
-  // TODO refactor after ProductData is defined (as in ProductListing)
+  // TODO change name to renderGalleryElements
   getGalleryElements = () => {
     const gallery = this.state.productData?.gallery.map((imgSource: string, index: number) => 
       <img src={imgSource} key={index} />
@@ -75,6 +73,14 @@ class ProductDescription extends React.Component<Props, State> {
     this.setState({
       selectedPhoto: firstImg
     })
+  }
+
+  renderSizeAttributes = () => {
+    
+  }
+
+  renderColorAttributes = () => {
+
   }
 
   componentDidMount(): void {
@@ -95,13 +101,14 @@ class ProductDescription extends React.Component<Props, State> {
           <S.Img src={this.state.selectedPhoto} />
         </S.ImgContainer>
         <S.Panel>
-          <div>{brand}</div>
+          <div className='brand'>{brand}</div>
           <h2>{name}</h2>
-          <div>SIZE: </div>
-          <div>COLOR: </div>
-          <div>PRICE: </div>
+          <div className='size'>SIZE: </div>
+          <div className='color'>COLOR: </div>
+          <div className='price'>PRICE: </div>
           <button>ADD TO CART</button>
-          <p>{desc}</p>
+          <div className='description' dangerouslySetInnerHTML={{ __html: desc }} />
+      
         </S.Panel>
       </S.Container>
     )

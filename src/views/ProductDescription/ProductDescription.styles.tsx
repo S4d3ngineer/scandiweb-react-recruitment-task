@@ -4,7 +4,8 @@ export const Container = styled.div`
   display: flex;
   flex-wrap: wrap;
   max-width: 1440px; 
-  margin: 0 auto;
+  justify-content: center;
+  margin: 50px auto;
 `
 
 export const ImgContainer = styled.div`
@@ -38,6 +39,30 @@ export const Img = styled.img`
   padding-right: 30px;
 `
 
+// TODO take care of the font sizing and maybe declare p in global styles
 export const Panel = styled.div`
-  
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-width: 300px;
+  .brand {
+    font-size: 30px;
+    font-weight: 600;
+  }
+  h2 {
+    font-size: 30px;
+    font-weight: 400;
+  }
+  .attribute {
+    font-size: 18px;
+    font-weight: 700;
+  }
+  .description {
+    font-family: Roboto;
+    font-size: 16px;
+    font-weight: 400px;
+    li:not(:last-child) {
+      padding-bottom: 10px;
+    }
+  } 
 `
