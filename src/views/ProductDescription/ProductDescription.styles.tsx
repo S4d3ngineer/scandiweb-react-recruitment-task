@@ -53,9 +53,23 @@ export const Panel = styled.div`
     font-size: 30px;
     font-weight: 400;
   }
-  .attribute {
+  .attributeName {
     font-size: 18px;
     font-weight: 700;
+  }
+  .attributeItems {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  .attributeBox { display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid #1D1F22;
+    width: 63px;
+    height: 45px;
+    cursor: pointer;
   }
   .description {
     font-family: Roboto;

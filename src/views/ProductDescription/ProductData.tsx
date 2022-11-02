@@ -1,18 +1,20 @@
-export default interface ProductData {
+export interface ProductData {
   name: string;
   gallery: string[];
   description: string;
-  attributes: {
-    id: string;
-    name: string;
-    type: string;
-    items: Attribute[];
-  }
+  attributes: AttributeSet[];
   prices: Price[];
   brand: string;
 }
 
-interface Attribute {
+export interface AttributeSet {
+  id: string;
+  name: string;
+  type: string;
+  items: Attribute[];
+}
+
+export interface Attribute {
   displayValue: string;
   value: string;
   id: string;

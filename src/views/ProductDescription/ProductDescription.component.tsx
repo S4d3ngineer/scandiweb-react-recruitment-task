@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { ReactElement } from 'react';
 import { useParams } from 'react-router-dom';
 import * as S from './ProductDescription.styles';
 import { productDataQuery } from './ProductDescription.queries';
 import { client } from 'index';
-import ProductData from './ProductData';
+import { ProductData, Attribute, AttributeSet } from './ProductData';
+import { JsxFragment } from 'typescript';
 
 interface WithParamsProps {
   params: Record<string, string>;
@@ -39,6 +40,7 @@ class ProductDescription extends React.Component<Props, State> {
     selectedPhoto: undefined
   }
 
+  // TODO should I declare return type?
   getProductData = async () => {
     const response = await client.query(
       {
@@ -55,19 +57,18 @@ class ProductDescription extends React.Component<Props, State> {
     })
   }
 
-  // TODO change name to renderGalleryElements
-  getGalleryElements = () => {
-    const gallery = this.state.productData?.gallery.map((imgSource: string, index: number) => 
+  renderGalleryElements = (): ReactElement => {
+    const galleryElements = this.state.productData?.gallery.map((imgSource: string, index: number) => 
       <img src={imgSource} key={index} />
     )
     return (
       <React.Fragment>
-        {gallery}
+        {galleryElements}
       </React.Fragment>
     )
   }
 
-  handleGalleryPhotoClick = () => {
+  handleGalleryPhotoClick = (): void => {
     const firstImg = this.state.productData?.gallery[0];
     console.log("Heeereee: " + firstImg);
     this.setState({
@@ -75,12 +76,37 @@ class ProductDescription extends React.Component<Props, State> {
     })
   }
 
-  renderSizeAttributes = () => {
-    
+  renderAttributes = (): ReactElement => {
+    const attributeElements = this.state.productData?.attributes.map((attribute: AttributeSet, index: number) => 
+      <React.Fragment>
+        <div className='attributeName' key={index}>{attribute.name}:</div>
+        <div className='attributeItems'>{this.renderAttributeItems(attribute.items, attribute.type)}</div>
+      </React.Fragment>
+    )
+    return (
+      <React.Fragment>
+        {attributeElements}
+      </React.Fragment>
+    )
   }
 
-  renderColorAttributes = () => {
+  renderAttributeItems = (items: Attribute[], type: string): ReactElement => {
+      let attributeElement: (item: Attribute, index: number) => ReactElement;
+      if (type === 'swatch') {
+        attributeElement = (item, index) => <div className='attributeBox' key={index} style={{backgroundColor: item.value}}></div>;
+      } else {
+        attributeElement = (item, index) => <div className='attributeBox' key={index}>{item.value}</div>;
+      }
 
+    const itemElements = items.map((item: Attribute, index: number) => 
+      // <div className={className} key={index}>{item.value}</div>
+      attributeElement(item, index)
+    )
+    return (
+      <React.Fragment>
+        {itemElements}
+      </React.Fragment>
+    )
   }
 
   componentDidMount(): void {
@@ -97,14 +123,13 @@ class ProductDescription extends React.Component<Props, State> {
     return (
       <S.Container>
         <S.ImgContainer>
-          <S.ImgGallery>{this.getGalleryElements()}</S.ImgGallery>
+          <S.ImgGallery>{this.renderGalleryElements()}</S.ImgGallery>
           <S.Img src={this.state.selectedPhoto} />
         </S.ImgContainer>
         <S.Panel>
           <div className='brand'>{brand}</div>
           <h2>{name}</h2>
-          <div className='size'>SIZE: </div>
-          <div className='color'>COLOR: </div>
+          {this.renderAttributes()}
           <div className='price'>PRICE: </div>
           <button>ADD TO CART</button>
           <div className='description' dangerouslySetInnerHTML={{ __html: desc }} />
