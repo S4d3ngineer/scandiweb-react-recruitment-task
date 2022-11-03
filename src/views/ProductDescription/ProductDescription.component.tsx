@@ -75,11 +75,13 @@ class ProductDescription extends React.Component<Props, State> {
     })
   }
 
+  help = (id: string) => { console.log('someid:', id); return id; }
+
   renderAttributes = (): ReactElement => {
-    const attributeElements = this.state.productData?.attributes.map((attribute: AttributeSet, index: number) => 
-      <React.Fragment>
-        <div className='attributeName' key={'name' + index}>{attribute.name}:</div>
-        <div className='attributeItems' key={'item' + index}>{this.renderAttributeItems(attribute.items, attribute.type)}</div>
+    const attributeElements = this.state.productData?.attributes.map((attribute: AttributeSet) => 
+      <React.Fragment key={attribute.id}>
+        <div className='attributeName' key={attribute.id + '__heading'}>{attribute.name}:</div>
+        <div className='attributeItems' key={attribute.id + '__items'}>{this.renderAttributeItems(attribute.items, attribute.type)}</div>
       </React.Fragment>
     )
     return (
@@ -92,9 +94,9 @@ class ProductDescription extends React.Component<Props, State> {
   renderAttributeItems = (items: Attribute[], type: string): ReactElement => {
       let attributeElement: (item: Attribute, index: number) => ReactElement;
       if (type === 'swatch') {
-        attributeElement = (item, index) => <div className='swatchAttributeBox' key={index} style={{backgroundColor: item.value}}></div>;
+        attributeElement = (item) => <div className='swatchAttributeBox' key={item.id} style={{backgroundColor: item.value}}></div>;
       } else {
-        attributeElement = (item, index) => <div className='attributeBox' key={index}>{item.value}</div>;
+        attributeElement = (item) => <div className='attributeBox' key={item.id}>{item.value}</div>;
       }
 
     const itemElements = items.map((item: Attribute, index: number) => 
