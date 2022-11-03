@@ -58,7 +58,7 @@ class ProductDescription extends React.Component<Props, State> {
 
   renderGalleryElements = (): ReactElement => {
     const galleryElements = this.state.productData?.gallery.map((imgSource: string, index: number) => 
-      <img src={imgSource} key={index} onClick={() => this.handleGalleryPhotoClick(imgSource)} />
+      <img src={imgSource} draggable='false' key={index} onClick={() => this.handleGalleryPhotoClick(imgSource)} />
     )
     return (
       <React.Fragment>
@@ -69,7 +69,6 @@ class ProductDescription extends React.Component<Props, State> {
 
   handleGalleryPhotoClick = (src: string): void => {
     const selectedSrc = src;
-    console.log("Heeereee: " + selectedSrc);
     this.setState({
       selectedPhoto: selectedSrc
     })
