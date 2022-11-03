@@ -4,7 +4,6 @@ import * as S from './ProductDescription.styles';
 import { productDataQuery } from './ProductDescription.queries';
 import { client } from 'index';
 import { ProductData, Attribute, AttributeSet } from './ProductData';
-import { JsxFragment } from 'typescript';
 
 interface WithParamsProps {
   params: Record<string, string>;
@@ -59,7 +58,7 @@ class ProductDescription extends React.Component<Props, State> {
 
   renderGalleryElements = (): ReactElement => {
     const galleryElements = this.state.productData?.gallery.map((imgSource: string, index: number) => 
-      <img src={imgSource} key={index} />
+      <img src={imgSource} key={index} onClick={() => this.handleGalleryPhotoClick(imgSource)} />
     )
     return (
       <React.Fragment>
@@ -68,19 +67,19 @@ class ProductDescription extends React.Component<Props, State> {
     )
   }
 
-  handleGalleryPhotoClick = (): void => {
-    const firstImg = this.state.productData?.gallery[0];
-    console.log("Heeereee: " + firstImg);
+  handleGalleryPhotoClick = (src: string): void => {
+    const selectedSrc = src;
+    console.log("Heeereee: " + selectedSrc);
     this.setState({
-      selectedPhoto: firstImg
+      selectedPhoto: selectedSrc
     })
   }
 
   renderAttributes = (): ReactElement => {
     const attributeElements = this.state.productData?.attributes.map((attribute: AttributeSet, index: number) => 
       <React.Fragment>
-        <div className='attributeName' key={index}>{attribute.name}:</div>
-        <div className='attributeItems'>{this.renderAttributeItems(attribute.items, attribute.type)}</div>
+        <div className='attributeName' key={'name' + index}>{attribute.name}:</div>
+        <div className='attributeItems' key={'item' + index}>{this.renderAttributeItems(attribute.items, attribute.type)}</div>
       </React.Fragment>
     )
     return (
@@ -93,13 +92,12 @@ class ProductDescription extends React.Component<Props, State> {
   renderAttributeItems = (items: Attribute[], type: string): ReactElement => {
       let attributeElement: (item: Attribute, index: number) => ReactElement;
       if (type === 'swatch') {
-        attributeElement = (item, index) => <div className='attributeBox' key={index} style={{backgroundColor: item.value}}></div>;
+        attributeElement = (item, index) => <div className='swatchAttributeBox' key={index} style={{backgroundColor: item.value}}></div>;
       } else {
         attributeElement = (item, index) => <div className='attributeBox' key={index}>{item.value}</div>;
       }
 
     const itemElements = items.map((item: Attribute, index: number) => 
-      // <div className={className} key={index}>{item.value}</div>
       attributeElement(item, index)
     )
     return (

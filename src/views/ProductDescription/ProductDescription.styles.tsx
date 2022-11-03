@@ -27,6 +27,7 @@ export const ImgGallery = styled.div`
     width: 85px;
     height: 85px;
     object-fit: contain;
+    cursor: pointer;
   }
 `
 
@@ -63,12 +64,19 @@ export const Panel = styled.div`
     flex-wrap: wrap;
     gap: 12px;
   }
-  .attributeBox { display: flex;
+  .attributeBox { 
+    display: flex;
     justify-content: center;
     align-items: center;
     border: 1px solid #1D1F22;
     width: 63px;
     height: 45px;
+    cursor: pointer;
+  }
+  .swatchAttributeBox {
+    border: 1px solid #1D1F22;
+    width: 36px;
+    height: 36px;
     cursor: pointer;
   }
   .description {
