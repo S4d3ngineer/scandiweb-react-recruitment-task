@@ -56,6 +56,7 @@ class ProductDescription extends React.Component<Props, State> {
     })
   }
 
+  // TODO add alt to images
   renderGalleryElements = (): ReactElement => {
     const galleryElements = this.state.productData?.gallery.map((imgSource: string, index: number) => 
       <img src={imgSource} draggable='false' key={index} onClick={() => this.handleGalleryPhotoClick(imgSource)} />
@@ -121,7 +122,7 @@ class ProductDescription extends React.Component<Props, State> {
       <S.Container>
         <S.ImgContainer>
           <S.ImgGallery>{this.renderGalleryElements()}</S.ImgGallery>
-          <S.Img src={this.state.selectedPhoto} />
+          <S.Img src={this.state.selectedPhoto} draggable='false' />
         </S.ImgContainer>
         <S.Panel>
           <div className='brand'>{brand}</div>
