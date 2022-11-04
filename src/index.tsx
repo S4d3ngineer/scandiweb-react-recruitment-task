@@ -3,22 +3,9 @@ import ReactDOM from 'react-dom/client';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { ApolloClient, InMemoryCache, ApolloProvider, gql } from '@apollo/client';
-import { createGlobalStyle } from 'styled-components';
 import { BrowserRouter } from 'react-router-dom';
-
-const GlobalStyles = createGlobalStyle`
-  * {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-    font-family: 'Raleway';
-  }
-
-  a {
-    color: inherit;
-    text-decoration: none;
-  }
-`
+import { GlobalStyles, theme } from 'global-styles'; 
+import { ThemeProvider } from 'styled-components'; 
 
 export const client = new ApolloClient({
   uri: "http://localhost:4000",
@@ -43,8 +30,10 @@ root.render(
   <React.StrictMode>
     <BrowserRouter>
       <ApolloProvider client={client}>
-        <GlobalStyles />
-        <App />
+        <ThemeProvider theme={theme}>
+          <GlobalStyles />
+          <App />
+        </ThemeProvider>
       </ApolloProvider>
     </BrowserRouter>
   </React.StrictMode>
