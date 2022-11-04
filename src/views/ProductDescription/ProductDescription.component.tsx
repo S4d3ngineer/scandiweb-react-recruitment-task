@@ -17,7 +17,7 @@ const withParams = <Props extends WithParamsProps>(
 ) => {
   return (props: Omit<Props, keyof WithParamsProps>) => {
     const params = useParams();
-    
+
     return (
       <WrappedComponent
         {...(props as Props)}
@@ -31,12 +31,14 @@ const withParams = <Props extends WithParamsProps>(
 interface State {
   productData: ProductData | null;
   selectedPhoto: string | undefined;
+  selectedAttributes: Record<AttributeSet["id"], Attribute["value"]>
 }
 
 class ProductDescription extends React.Component<Props, State> {
   state: State = {
     productData: null,
-    selectedPhoto: undefined
+    selectedPhoto: undefined,
+    selectedAttributes: {}
   }
 
   // TODO should I declare return type?
@@ -57,7 +59,7 @@ class ProductDescription extends React.Component<Props, State> {
   }
 
   renderGalleryElements = (): ReactElement => {
-    const galleryElements = this.state.productData?.gallery.map((imgSource: string, index: number) => 
+    const galleryElements = this.state.productData?.gallery.map((imgSource: string, index: number) =>
       <img src={imgSource} draggable='false' alt={'Product photo ' + index} key={index} onClick={() => this.handleGalleryPhotoClick(imgSource)} />
     )
     return (
@@ -77,10 +79,10 @@ class ProductDescription extends React.Component<Props, State> {
   help = (id: string) => { console.log('someid:', id); return id; }
 
   renderAttributes = (): ReactElement => {
-    const attributeElements = this.state.productData?.attributes.map((attribute: AttributeSet) => 
+    const attributeElements = this.state.productData?.attributes.map((attribute: AttributeSet) =>
       <React.Fragment key={attribute.id}>
         <div className='attributeName' key={attribute.id + '__heading'}>{attribute.name}:</div>
-        <div className='attributeItems' key={attribute.id + '__items'}>{this.renderAttributeItems(attribute.items, attribute.type)}</div>
+        <div className='attributeItems' key={attribute.id + '__items'}>{this.renderAttributeItems(attribute.items, attribute.type, attribute.id)}</div>
       </React.Fragment>
     )
     return (
@@ -90,22 +92,55 @@ class ProductDescription extends React.Component<Props, State> {
     )
   }
 
-  renderAttributeItems = (items: Attribute[], type: string): ReactElement => {
-      let attributeElement: (item: Attribute, index: number) => ReactElement;
-      if (type === 'swatch') {
-        attributeElement = (item) => <div className='swatchAttributeBox' key={item.id} style={{backgroundColor: item.value}}></div>;
-      } else {
-        attributeElement = (item) => <div className='attributeBox' key={item.id}>{item.value}</div>;
-      }
+  renderAttributeItems = (items: Attribute[], type: AttributeSet['type'], attributeId: AttributeSet['id']): ReactElement => {
+    let attributeElement: (item: Attribute) => ReactElement;
+    if (type === 'swatch') {
+      attributeElement = (item) => {
+        let classNames = 'swatchAttributeBox';
+        if (this.state.selectedAttributes[attributeId] === item.value) classNames += ' selectedAttribute'
+        return (
+          <div
+            className={classNames}
+            key={item.id} 
+            onClick={() => this.handleAttributeItemClick(attributeId, item.value)} 
+            style={{ backgroundColor: item.value }}
+          >
+          </div>
+        )
+      };
+    } else {
+      attributeElement = (item) => {
+        let classNames = 'attributeBox';
+        if (this.state.selectedAttributes[attributeId] === item.value) classNames += ' selectedAttribute'
+        return (
+          <div
+            className={classNames} 
+            key={item.id} 
+            onClick={() => this.handleAttributeItemClick(attributeId, item.value)}
+          >
+            {item.value}
+          </div>  
+        )
+      } 
+    }
 
-    const itemElements = items.map((item: Attribute, index: number) => 
-      attributeElement(item, index)
+    const itemElements = items.map((item: Attribute) =>
+      attributeElement(item)
     )
     return (
       <React.Fragment>
         {itemElements}
       </React.Fragment>
     )
+  }
+
+  handleAttributeItemClick = (attributeId: AttributeSet["id"], itemValue: Attribute["value"]) => {
+    this.setState({
+      selectedAttributes: {
+        ...this.state.selectedAttributes,
+        [attributeId]: itemValue
+      }
+    })
   }
 
   componentDidMount(): void {
@@ -132,7 +167,7 @@ class ProductDescription extends React.Component<Props, State> {
           <div className='price'>PRICE: </div>
           <button>ADD TO CART</button>
           <div className='description' dangerouslySetInnerHTML={{ __html: desc }} />
-      
+
         </S.Panel>
       </S.Container>
     )

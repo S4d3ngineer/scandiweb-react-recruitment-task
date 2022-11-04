@@ -95,6 +95,10 @@ export const Panel = styled.div`
     height: 36px;
     cursor: pointer;
   }
+  .selectedAttribute {
+    border: 2px solid white;
+    outline: 3px solid black;
+  }
   .description {
     font-family: Roboto;
     font-size: 16px;
