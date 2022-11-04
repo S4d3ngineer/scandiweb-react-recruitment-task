@@ -4,6 +4,7 @@ import * as S from './ProductDescription.styles';
 import { productDataQuery } from './ProductDescription.queries';
 import { client } from 'index';
 import { ProductData, Attribute, AttributeSet } from './ProductData';
+import BasicButton from 'components/basic-button/basic-button.component';
 
 interface WithParamsProps {
   params: Record<string, string>;
@@ -165,13 +166,13 @@ class ProductDescription extends React.Component<Props, State> {
           <h2>{name}</h2>
           {this.renderAttributes()}
           <div className='price'>PRICE: </div>
-          <button>ADD TO CART</button>
+          <BasicButton style='primary' width={280} fontSize={16}>ADD TO CART</BasicButton>
           <div className='description' dangerouslySetInnerHTML={{ __html: desc }} />
 
         </S.Panel>
       </S.Container>
     )
   }
-};
+}
 
 export default withParams(ProductDescription);

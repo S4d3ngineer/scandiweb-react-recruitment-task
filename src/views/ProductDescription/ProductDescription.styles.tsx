@@ -16,7 +16,6 @@ export const ImgContainer = styled.div`
 const scrollbarThumbColor = "#444"; 
 const scrollbarTrackColor = "#777";
 
-// TODO ev instead of px? 
 export const ImgGallery = styled.div`
   display: flex;
   flex-direction: column;
@@ -56,7 +55,7 @@ export const Img = styled.img`
   padding-right: 30px;
 `
 
-// TODO take care of the font sizing and maybe declare p in global styles
+// TODO maybe declare p in global styles
 export const Panel = styled.div`
   display: flex;
   flex-direction: column;
