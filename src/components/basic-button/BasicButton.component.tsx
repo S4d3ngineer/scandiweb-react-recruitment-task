@@ -1,5 +1,5 @@
 import React from "react";
-import { Button } from './basic-button.styles';
+import { Button } from './BasicButton.styles';
 
 // TODO make enum for values
 interface Props {

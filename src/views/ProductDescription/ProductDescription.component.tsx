@@ -4,7 +4,7 @@ import * as S from './ProductDescription.styles';
 import { productDataQuery } from './ProductDescription.queries';
 import { client } from 'index';
 import { ProductData, Attribute, AttributeSet } from './ProductData';
-import BasicButton from 'components/basic-button/basic-button.component';
+import BasicButton from 'components/basic-button/BasicButton.component';
 import { withParams, WithParamsProps } from 'utils/wrappers';
 
 // interface WithParamsProps {
