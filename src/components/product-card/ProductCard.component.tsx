@@ -4,7 +4,6 @@ import * as S from './ProductCard.styles';
 
 interface Props {
   id: string;
-  key: number;
   img: string;
   name: string;
   price: {

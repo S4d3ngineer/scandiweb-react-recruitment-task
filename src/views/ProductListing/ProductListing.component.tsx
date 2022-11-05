@@ -1,31 +1,71 @@
 import ProductCard from "components/product-card/ProductCard.component";
+import { client } from "index";
 import React from "react";
-import { ProductCardData } from "./ProductCardData";
+import { withParams, WithParamsProps } from "utils/wrappers";
+import { CategoryData } from "./ProductListing.interfaces";
+import { categoryDataQuery } from "./ProductListing.queries";
 import * as S from "./ProductListing.styles";
 
-interface Props {
-  productList: ProductCardData[] | null | undefined;
+interface Props extends WithParamsProps {
+  currency: string;
 }
 
-export default class ProductListing extends React.Component<Props> {
+interface State {
+  category: string,
+  productsData: CategoryData | null
+}
 
-  renderProductList() {
-    console.log(this.props.productList);
-    const productListContent = this.props.productList?.map((product, index) => 
-      <ProductCard id={product.id} img={product.image} name={product.name} price={product.price} key={index} />
-    )
+class ProductListing extends React.Component<Props, State> {
+  state: State = {
+    category: this.props.params.category || 'all',
+    productsData: null
+  }
+
+  getProductsData = async () => {
+    const response = await client.query({
+      query: categoryDataQuery,
+      variables: {
+        input: {
+          title: this.props.params.category || 'all'
+        }
+      }
+    });
+    const data = response.data.category;
+    this.setState({
+      productsData: data
+    })
+  }
+
+  renderProductList = () => {
+    const productListContent = this.state.productsData?.products.map(product => {
+      const price = product.prices.find(price => price.currency.label === this.props.currency);
+      const trimmedPrice = {
+        symbol: price?.currency.symbol,
+        amount: price?.amount
+      }
+      return <ProductCard id={product.id} img={product.gallery[0]} name={product.name} price={trimmedPrice} key={product.id} />
+    })
     return (
       <React.Fragment>
         {productListContent}
-      </React.Fragment>
-    ) 
+      </ React.Fragment>
+    )
   }
 
   componentDidMount(): void {
-    this.renderProductList();
+    this.getProductsData();
+  }
+
+  componentDidUpdate(prevProps: Props) {
+    if (this.props.params.category !== prevProps.params.category) {
+      this.getProductsData();
+    }
   }
 
   render() {
+    if (!this.state.productsData) {
+      return null;
+    }
     return (
       <S.Container>
         <S.HeadingContainer>
@@ -35,6 +75,8 @@ export default class ProductListing extends React.Component<Props> {
           {this.renderProductList()}
         </S.ProductList>
       </S.Container>
-    ) 
-  } 
+    )
+  }
 }
+
+export default withParams(ProductListing);

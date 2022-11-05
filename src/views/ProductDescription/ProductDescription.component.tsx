@@ -1,32 +1,33 @@
 import React, { ReactElement } from 'react';
-import { useParams } from 'react-router-dom';
+// import { useParams } from 'react-router-dom';
 import * as S from './ProductDescription.styles';
 import { productDataQuery } from './ProductDescription.queries';
 import { client } from 'index';
 import { ProductData, Attribute, AttributeSet } from './ProductData';
 import BasicButton from 'components/basic-button/basic-button.component';
+import { withParams, WithParamsProps } from 'utils/wrappers';
 
-interface WithParamsProps {
-  params: Record<string, string>;
-}
+// interface WithParamsProps {
+//   params: Record<string, string>;
+// }
 
 interface Props extends WithParamsProps {
 }
 
-const withParams = <Props extends WithParamsProps>(
-  WrappedComponent: React.ComponentType<Props>
-) => {
-  return (props: Omit<Props, keyof WithParamsProps>) => {
-    const params = useParams();
+// const withParams = <Props extends WithParamsProps>(
+//   WrappedComponent: React.ComponentType<Props>
+// ) => {
+//   return (props: Omit<Props, keyof WithParamsProps>) => {
+//     const params = useParams();
 
-    return (
-      <WrappedComponent
-        {...(props as Props)}
-        params={params}
-      />
-    )
-  }
-}
+//     return (
+//       <WrappedComponent
+//         {...(props as Props)}
+//         params={params}
+//       />
+//     )
+//   }
+// }
 
 // TODO take care of undefined in selectedPhoto
 interface State {
@@ -93,7 +94,7 @@ class ProductDescription extends React.Component<Props, State> {
     )
   }
 
-  renderAttributeItems = (items: Attribute[], type: AttributeSet['type'], attributeId: AttributeSet['id']): ReactElement => {
+  renderAttributeItems = (items: Attribute[], type: string, attributeId: string): ReactElement => {
     let attributeElement: (item: Attribute) => ReactElement;
     if (type === 'swatch') {
       attributeElement = (item) => {
@@ -135,7 +136,7 @@ class ProductDescription extends React.Component<Props, State> {
     )
   }
 
-  handleAttributeItemClick = (attributeId: AttributeSet["id"], itemValue: Attribute["value"]) => {
+  handleAttributeItemClick = (attributeId: string, itemValue: string) => {
     this.setState({
       selectedAttributes: {
         ...this.state.selectedAttributes,

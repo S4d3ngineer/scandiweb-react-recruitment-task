@@ -1,20 +1,25 @@
 import React from "react";
 import * as S from "./Navbar.styles";
 import { ReactComponent as Vector } from "assets/icons/Vector.svg";
+import { Link } from "react-router-dom";
+import { withParams, WithParamsProps } from "utils/wrappers";
 
-interface Props {
+export interface NavbarProps {
   /** Names of product categories */
   categories: string[] | null;
 }
 
-export default class Navbar extends React.Component<Props, {}> {
+interface Props extends NavbarProps, WithParamsProps {
+}
+
+class Navbar extends React.Component<Props, {}> {
   renderCategoryFilters = () => {
     return this.props.categories?.map((category: string, index: number) => (
-      <S.CategoryButton
-        key={category + index}
-      >
-        {category}
-      </S.CategoryButton>
+      <Link to={'/' + category} key={category + index}>
+        <S.CategoryButton >
+          {category}
+        </S.CategoryButton>
+      </Link>
     ))
   }
 
@@ -26,9 +31,9 @@ export default class Navbar extends React.Component<Props, {}> {
       <S.FlexBox>
         <S.CategoryFilters>{this.renderCategoryFilters()}</S.CategoryFilters>
         <S.LogoContainer>
-          <a href="/">
+          <Link to="/">
             <S.StyledLogo />
-          </a>
+          </Link>
         </S.LogoContainer>
         <S.Menu>
           <S.CurrencyPicker>$<Vector /></S.CurrencyPicker>
@@ -38,3 +43,5 @@ export default class Navbar extends React.Component<Props, {}> {
     )
   }
 }
+
+export default withParams(Navbar);
