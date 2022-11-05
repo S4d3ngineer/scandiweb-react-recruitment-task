@@ -7,6 +7,7 @@ import BasicButton from 'components/basic-button/BasicButton.component';
 import { withParams, WithParamsProps } from 'utils/wrappers';
 
 interface Props extends WithParamsProps {
+  currency: string;
 }
 
 interface State {
@@ -56,13 +57,13 @@ class ProductDescription extends React.Component<Props, State> {
     })
   }
 
-  help = (id: string) => { console.log('someid:', id); return id; }
-
   renderAttributes = (): ReactElement => {
     const attributeElements = this.state.productData?.attributes.map((attribute: AttributeSet) =>
       <React.Fragment key={attribute.id}>
         <div className='attributeName' key={attribute.id + '__heading'}>{attribute.name}:</div>
-        <div className='attributeItems' key={attribute.id + '__items'}>{this.renderAttributeItems(attribute.items, attribute.type, attribute.id)}</div>
+        <div className='attributeItems' key={attribute.id + '__items'}>
+          {this.renderAttributeItems(attribute.items, attribute.type, attribute.id)}
+        </div>
       </React.Fragment>
     )
     return (
@@ -81,8 +82,8 @@ class ProductDescription extends React.Component<Props, State> {
         return (
           <div
             className={classNames}
-            key={item.id} 
-            onClick={() => this.handleAttributeItemClick(attributeId, item.value)} 
+            key={item.id}
+            onClick={() => this.handleAttributeItemClick(attributeId, item.value)}
             style={{ backgroundColor: item.value }}
           >
           </div>
@@ -94,14 +95,14 @@ class ProductDescription extends React.Component<Props, State> {
         if (this.state.selectedAttributes[attributeId] === item.value) classNames += ' selectedAttribute'
         return (
           <div
-            className={classNames} 
-            key={item.id} 
+            className={classNames}
+            key={item.id}
             onClick={() => this.handleAttributeItemClick(attributeId, item.value)}
           >
             {item.value}
-          </div>  
+          </div>
         )
-      } 
+      }
     }
 
     const itemElements = items.map((item: Attribute) =>
@@ -114,13 +115,20 @@ class ProductDescription extends React.Component<Props, State> {
     )
   }
 
-  handleAttributeItemClick = (attributeId: string, itemValue: string) => {
+  handleAttributeItemClick = (attributeId: string, itemValue: string): void => {
     this.setState({
       selectedAttributes: {
         ...this.state.selectedAttributes,
         [attributeId]: itemValue
       }
     })
+  }
+
+  getPrice = (): {symbol: string | undefined, amount: number | undefined} => {
+    const price = this.state.productData?.prices.find(price => price.currency.label === this.props.currency);
+    const symbol = price?.currency.symbol;
+    const amount = price?.amount;
+    return { symbol, amount };
   }
 
   componentDidMount(): void {
@@ -134,6 +142,7 @@ class ProductDescription extends React.Component<Props, State> {
     const brand = this.state.productData?.brand;
     const name = this.state.productData?.name;
     const desc = this.state.productData?.description;
+    const { symbol, amount } = this.getPrice();
     return (
       <S.Container>
         <S.ImgContainer>
@@ -144,7 +153,8 @@ class ProductDescription extends React.Component<Props, State> {
           <div className='brand'>{brand}</div>
           <h2>{name}</h2>
           {this.renderAttributes()}
-          <div className='price'>PRICE: </div>
+          <div className='priceHeading'>PRICE: </div>
+          <div className='price'>{symbol + ' ' + amount}</div>
           <BasicButton style='primary' width={280} fontSize={16}>ADD TO CART</BasicButton>
           <div className='description' dangerouslySetInnerHTML={{ __html: desc }} />
 

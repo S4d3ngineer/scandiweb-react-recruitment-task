@@ -1,5 +1,6 @@
 export interface ProductData {
   name: string;
+  inStock: boolean;
   gallery: string[];
   description: string;
   attributes: AttributeSet[];
@@ -21,7 +22,7 @@ export interface Attribute {
 }
 
 interface Price {
-  currency: Currency[];
+  currency: Currency;
   amount: number;
 }
 

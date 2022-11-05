@@ -42,7 +42,7 @@ class App extends React.Component<Props, State> {
           <Route path="/" element={<Layout categories={this.state.categoryNames} />} >
             <Route index element={<ProductListing currency={this.state.selectedCurrency} />} />
             <Route path=":category" element={<ProductListing currency={this.state.selectedCurrency} />} />
-            <Route path="product/:id" element={<ProductDescription />} />
+            <Route path="product/:id" element={<ProductDescription currency={this.state.selectedCurrency} />} />
           </Route>
         </Routes>
       </div>

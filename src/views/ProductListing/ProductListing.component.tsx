@@ -1,6 +1,6 @@
 import ProductCard from "components/product-card/ProductCard.component";
 import { client } from "index";
-import React from "react";
+import React, { ReactElement } from "react";
 import { withParams, WithParamsProps } from "utils/wrappers";
 import { CategoryData } from "./ProductListing.interfaces";
 import { categoryDataQuery } from "./ProductListing.queries";
@@ -36,7 +36,7 @@ class ProductListing extends React.Component<Props, State> {
     })
   }
 
-  renderProductList = () => {
+  renderProductList = (): ReactElement => {
     const productListContent = this.state.productsData?.products.map(product => {
       const price = product.prices.find(price => price.currency.label === this.props.currency);
       const trimmedPrice = {

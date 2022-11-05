@@ -3,7 +3,7 @@ export interface CategoryData {
     id: string;
     name: string;
     inStock: boolean;
-    gallery: string;
+    gallery: string[];
     prices: [{
       currency: {
         label: string;

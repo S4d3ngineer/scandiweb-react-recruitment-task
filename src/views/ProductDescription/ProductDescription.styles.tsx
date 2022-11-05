@@ -102,6 +102,14 @@ export const Panel = styled.div`
     border: 2px solid white;
     outline: 3px solid ${props => props.theme.colors.primary };
   }
+  .priceHeading {
+    font-size: 16px;
+    font-weight: 700;
+  }
+  .price {
+    font-size: 24px;
+    font-weight: 700;
+  }
   .description {
     font-family: Roboto;
     font-size: 16px;
