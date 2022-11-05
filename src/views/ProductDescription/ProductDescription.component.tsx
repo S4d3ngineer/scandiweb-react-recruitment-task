@@ -1,5 +1,4 @@
 import React, { ReactElement } from 'react';
-// import { useParams } from 'react-router-dom';
 import * as S from './ProductDescription.styles';
 import { productDataQuery } from './ProductDescription.queries';
 import { client } from 'index';
@@ -7,29 +6,9 @@ import { ProductData, Attribute, AttributeSet } from './ProductData';
 import BasicButton from 'components/basic-button/BasicButton.component';
 import { withParams, WithParamsProps } from 'utils/wrappers';
 
-// interface WithParamsProps {
-//   params: Record<string, string>;
-// }
-
 interface Props extends WithParamsProps {
 }
 
-// const withParams = <Props extends WithParamsProps>(
-//   WrappedComponent: React.ComponentType<Props>
-// ) => {
-//   return (props: Omit<Props, keyof WithParamsProps>) => {
-//     const params = useParams();
-
-//     return (
-//       <WrappedComponent
-//         {...(props as Props)}
-//         params={params}
-//       />
-//     )
-//   }
-// }
-
-// TODO take care of undefined in selectedPhoto
 interface State {
   productData: ProductData | null;
   selectedPhoto: string | undefined;
@@ -43,7 +22,6 @@ class ProductDescription extends React.Component<Props, State> {
     selectedAttributes: {}
   }
 
-  // TODO should I declare return type?
   getProductData = async () => {
     const response = await client.query(
       {
@@ -99,7 +77,7 @@ class ProductDescription extends React.Component<Props, State> {
     if (type === 'swatch') {
       attributeElement = (item) => {
         let classNames = 'swatchAttributeBox';
-        if (this.state.selectedAttributes[attributeId] === item.value) classNames += ' selectedAttribute'
+        if (this.state.selectedAttributes[attributeId] === item.value) classNames += ' selectedSwatchAttribute'
         return (
           <div
             className={classNames}

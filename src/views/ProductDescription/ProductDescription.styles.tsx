@@ -88,15 +88,19 @@ export const Panel = styled.div`
     height: 45px;
     cursor: pointer;
   }
+  .selectedAttribute {
+    background-color: black;
+    color: white;
+  }
   .swatchAttributeBox {
     border: 1px solid #1D1F22;
     width: 36px;
     height: 36px;
     cursor: pointer;
   }
-  .selectedAttribute {
+  .selectedSwatchAttribute {
     border: 2px solid white;
-    outline: 3px solid black;
+    outline: 3px solid ${props => props.theme.colors.primary };
   }
   .description {
     font-family: Roboto;
