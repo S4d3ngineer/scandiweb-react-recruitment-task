@@ -1,7 +1,7 @@
 import React from "react";
 import * as S from "./Navbar.styles";
 import { ReactComponent as Vector } from "assets/icons/Vector.svg";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { withParams, WithParamsProps } from "utils/wrappers";
 
 export interface NavbarProps {
@@ -15,11 +15,11 @@ interface Props extends NavbarProps, WithParamsProps {
 class Navbar extends React.Component<Props, {}> {
   renderCategoryFilters = () => {
     return this.props.categories?.map((category: string, index: number) => (
-      <Link to={'/' + category} key={category + index}>
+      <NavLink to={'/' + category} key={category + index}>
         <S.CategoryButton >
           {category}
         </S.CategoryButton>
-      </Link>
+      </NavLink>
     ))
   }
 

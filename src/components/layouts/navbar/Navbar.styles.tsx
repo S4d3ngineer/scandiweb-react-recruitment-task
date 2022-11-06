@@ -2,9 +2,6 @@ import styled from "styled-components";
 import { ReactComponent as Cart } from 'assets/icons/Cart.svg';
 import { ReactComponent as Logo } from 'assets/icons/Logo.svg';
 
-// TODO move constants to another file if it gets big enough
-const primary = "#5ECE7B"
-
 export const FlexBox = styled.div`
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -24,6 +21,10 @@ export const CategoryFilters = styled.div`
   display: flex;
   gap: 2em;
   justify-self: start;
+  .active button {
+    color: ${props => props.theme.colors.primary};
+    border-bottom-color: ${props => props.theme.colors.primary};
+  }
 `
 
 export const CategoryButton = styled.button`
@@ -33,8 +34,8 @@ export const CategoryButton = styled.button`
   padding-bottom: 2em;
   text-transform: uppercase;
   &:hover {
-    color: ${primary};
-    border-bottom-color: ${primary}; 
+    color: ${props => props.theme.colors.primary};
+    border-bottom-color: ${props => props.theme.colors.primary}; 
   }
 `
 
@@ -60,9 +61,9 @@ export const CurrencyPicker = styled.div`
   gap: 0.25em;
   &:hover {
     cursor: pointer;
-    color: ${primary};
+    color: ${props => props.theme.colors.primary};
       * {
-        stroke: ${primary};
+        stroke: ${props => props.theme.colors.primary};
     }
   }
 `
@@ -73,6 +74,6 @@ export const StyledLogo = styled(Logo)`
 
 export const StyledCart = styled(Cart)`
   &:hover * {
-    fill: ${primary};
+    fill: ${props => props.theme.colors.primary};
   }
 `
