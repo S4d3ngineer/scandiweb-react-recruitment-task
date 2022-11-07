@@ -60,10 +60,10 @@ class ProductDescription extends React.Component<Props, State> {
   renderAttributes = (): ReactElement => {
     const attributeElements = this.state.productData?.attributes.map((attribute: AttributeSet) =>
       <React.Fragment key={attribute.id}>
-        <div className='attributeName' key={attribute.id + '__heading'}>{attribute.name}:</div>
-        <div className='attributeItems' key={attribute.id + '__items'}>
+        <h5 key={attribute.id + '__heading'}>{attribute.name}:</h5>
+        <S.AttributeItems key={attribute.id + '__items'}>
           {this.renderAttributeItems(attribute.items, attribute.type, attribute.id)}
-        </div>
+        </S.AttributeItems>
       </React.Fragment>
     )
     return (
@@ -77,30 +77,28 @@ class ProductDescription extends React.Component<Props, State> {
     let attributeElement: (item: Attribute) => ReactElement;
     if (type === 'swatch') {
       attributeElement = (item) => {
-        let classNames = 'swatchAttributeBox';
-        if (this.state.selectedAttributes[attributeId] === item.value) classNames += ' selectedSwatchAttribute'
+        const className = (this.state.selectedAttributes[attributeId] === item.value) ? 'selected' : '';
         return (
-          <div
-            className={classNames}
+          <S.SwatchAttributeBox
+            className={className}
             key={item.id}
             onClick={() => this.handleAttributeItemClick(attributeId, item.value)}
             style={{ backgroundColor: item.value }}
           >
-          </div>
+          </S.SwatchAttributeBox>
         )
       };
     } else {
       attributeElement = (item) => {
-        let classNames = 'attributeBox';
-        if (this.state.selectedAttributes[attributeId] === item.value) classNames += ' selectedAttribute'
+        const className = (this.state.selectedAttributes[attributeId] === item.value) ? 'selected' : '';
         return (
-          <div
-            className={classNames}
+          <S.AttributeBox
+            className={className}
             key={item.id}
             onClick={() => this.handleAttributeItemClick(attributeId, item.value)}
           >
             {item.value}
-          </div>
+          </S.AttributeBox>
         )
       }
     }
@@ -147,17 +145,16 @@ class ProductDescription extends React.Component<Props, State> {
       <S.Container>
         <S.ImgContainer>
           <S.ImgGallery>{this.renderGalleryElements()}</S.ImgGallery>
-          <S.Img src={this.state.selectedPhoto} draggable='false' alt='Selected product photo' />
+          <S.SelectedImg src={this.state.selectedPhoto} draggable='false' alt='Selected product photo' />
         </S.ImgContainer>
         <S.Panel>
-          <div className='brand'>{brand}</div>
+          <S.Brand>{brand}</S.Brand>
           <h2>{name}</h2>
           {this.renderAttributes()}
-          <div className='priceHeading'>PRICE: </div>
-          <div className='price'>{symbol + ' ' + amount}</div>
+          <h6>PRICE: </h6>
+          <S.Price>{symbol + ' ' + amount}</S.Price>
           <PrimaryButton className='primary' $width={280} $fontSize={16}>ADD TO CART</PrimaryButton>
-          <div className='description' dangerouslySetInnerHTML={{ __html: desc }} />
-
+          <S.Description dangerouslySetInnerHTML={{ __html: desc }} />
         </S.Panel>
       </S.Container>
     )

@@ -46,7 +46,7 @@ export const ImgGallery = styled.div`
   }
 `
 
-export const Img = styled.img`
+export const SelectedImg = styled.img`
   max-width: 610px;
   max-height: 511px;
   width: 100%;
@@ -69,53 +69,67 @@ export const Panel = styled.div`
     font-size: 30px;
     font-weight: 400;
   }
-  .attributeName {
+  h5 {
     font-size: 18px;
     font-weight: 700;
   }
-  .attributeItems {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    gap: 12px;
+  h6 {
+    font-size: 16px;
+    font-weight: 700;
   }
-  .attributeBox { 
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border: 1px solid #1D1F22;
-    width: 63px;
-    height: 45px;
-    cursor: pointer;
-  }
-  .selectedAttribute {
+`
+
+export const Brand = styled.div`
+  font-size: 30px;
+`
+
+export const AttributeItems = styled.div`
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 12px;
+`
+
+export const AttributeBox = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid #1D1F22;
+  width: 63px;
+  height: 45px;
+  cursor: pointer;
+  &.selected {
     background-color: black;
     color: white;
   }
-  .swatchAttributeBox {
-    border: 1px solid #1D1F22;
-    width: 36px;
-    height: 36px;
-    cursor: pointer;
-  }
-  .selectedSwatchAttribute {
+`
+
+export const SwatchAttributeBox = styled.div`
+  border: 1px solid #1D1F22;
+  width: 36px;
+  height: 36px;
+  cursor: pointer;
+  &.selected {
     border: 2px solid white;
-    outline: 3px solid ${props => props.theme.colors.primary };
+    outline: 3px solid ${props => props.theme.colors.primary};
   }
-  .priceHeading {
-    font-size: 16px;
-    font-weight: 700;
+`
+
+export const SelectedSwatchAttribute = styled.div`
+  border: 2px solid white;
+  outline: 3px solid ${props => props.theme.colors.primary };
+`
+
+export const Price = styled.div`
+  font-size: 24px;
+  font-weight: 700;
+`
+
+export const Description = styled.div`
+  font-family: Roboto;
+  font-size: 16px;
+  font-weight: 400px;
+  li:not(:last-child) {
+    padding-bottom: 10px;
   }
-  .price {
-    font-size: 24px;
-    font-weight: 700;
-  }
-  .description {
-    font-family: Roboto;
-    font-size: 16px;
-    font-weight: 400px;
-    li:not(:last-child) {
-      padding-bottom: 10px;
-    }
-  } 
 `
