@@ -68,11 +68,11 @@ export const CurrencyPicker = styled.div`
   }
 `
 
-export const StyledLogo = styled(Logo)`
+export const LogoIcon = styled(Logo)`
   justify-self: center;
 `
 
-export const StyledCart = styled(Cart)`
+export const CartIcon = styled(Cart)`
   &:hover * {
     fill: ${props => props.theme.colors.primary};
   }

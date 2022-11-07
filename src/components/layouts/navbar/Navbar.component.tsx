@@ -32,12 +32,12 @@ class Navbar extends React.Component<Props, {}> {
         <S.CategoryFilters>{this.renderCategoryFilters()}</S.CategoryFilters>
         <S.LogoContainer>
           <Link to="/">
-            <S.StyledLogo />
+            <S.LogoIcon />
           </Link>
         </S.LogoContainer>
         <S.Menu>
           <S.CurrencyPicker>$<Vector /></S.CurrencyPicker>
-          <S.StyledCart />
+          <S.CartIcon />
         </S.Menu>
       </S.FlexBox>
     )
