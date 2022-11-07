@@ -1,9 +1,9 @@
 import React, { ReactElement } from 'react';
-import * as S from './ProductDescription.styles';
+import * as S from './ProductDescription.styled';
 import { productDataQuery } from './ProductDescription.queries';
 import { client } from 'index';
 import { ProductData, Attribute, AttributeSet } from './ProductData';
-import { BasicButton } from 'components/basic-button/BasicButton.styles';
+import { BasicButton } from 'components/basic-button/BasicButton.styled';
 import { withParams, WithParamsProps } from 'utils/wrappers';
 
 interface Props extends WithParamsProps {

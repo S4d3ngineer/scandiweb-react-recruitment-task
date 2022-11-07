@@ -4,7 +4,7 @@ import React, { ReactElement } from "react";
 import { withParams, WithParamsProps } from "utils/wrappers";
 import { CategoryData } from "./ProductListing.interfaces";
 import { categoryDataQuery } from "./ProductListing.queries";
-import * as S from "./ProductListing.styles";
+import * as S from "./ProductListing.styled";
 
 interface Props extends WithParamsProps {
   currency: string;

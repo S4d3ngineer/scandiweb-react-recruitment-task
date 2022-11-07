@@ -1,5 +1,5 @@
 import React from "react";
-import * as S from "./Navbar.styles";
+import * as S from "./Navbar.styled";
 import { ReactComponent as Vector } from "assets/icons/Vector.svg";
 import { Link, NavLink } from "react-router-dom";
 import { withParams, WithParamsProps } from "utils/wrappers";
