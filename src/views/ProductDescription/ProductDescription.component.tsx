@@ -3,8 +3,8 @@ import * as S from './ProductDescription.styled';
 import { productDataQuery } from './ProductDescription.queries';
 import { client } from 'index';
 import { ProductData, Attribute, AttributeSet } from './ProductData';
-import { BasicButton } from 'components/basic-button/BasicButton.styled';
 import { withParams, WithParamsProps } from 'utils/wrappers';
+import { PrimaryButton } from 'components/buttons/Buttons.styled';
 
 interface Props extends WithParamsProps {
   currency: string;
@@ -155,7 +155,7 @@ class ProductDescription extends React.Component<Props, State> {
           {this.renderAttributes()}
           <div className='priceHeading'>PRICE: </div>
           <div className='price'>{symbol + ' ' + amount}</div>
-          <BasicButton className='primary' $width={280} $fontSize={16}>ADD TO CART</BasicButton>
+          <PrimaryButton className='primary' $width={280} $fontSize={16}>ADD TO CART</PrimaryButton>
           <div className='description' dangerouslySetInnerHTML={{ __html: desc }} />
 
         </S.Panel>
