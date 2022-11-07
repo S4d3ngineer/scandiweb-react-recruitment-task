@@ -17,5 +17,9 @@ export const BasicButton = styled.button<ButtonProps>`
     color: white;
     background-color: ${props => props.theme.colors.primary};
     border: none;
+    outline: none;
+  }
+  &:hover {
+    transform: scale(0.98);
   }
 `
