@@ -14,4 +14,13 @@ export const ProductPhoto = styled.img`
 
 export const ProductInfo = styled.div`
   margin-top: 1.5em;
+  font-size: 18px;
+`
+
+export const ProductName = styled.div`
+  font-weight: 300;
+`
+
+export const Price = styled.div`
+  font-weight: 500;
 `

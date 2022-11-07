@@ -20,8 +20,8 @@ export default class ProductCard extends React.Component<Props> {
           <S.ProductPhoto src={this.props.img} alt="Product photo" className="product-photo"/>
         </Link>
         <S.ProductInfo>
-          <div><span><Link to={`/product/${this.props.id}`}>{this.props.name}</Link></span></div>
-          <div><span>{this.props.price.symbol}{this.props.price.amount}</span></div>
+          <S.ProductName><Link to={`/product/${this.props.id}`}>{this.props.name}</Link></S.ProductName>
+          <S.Price>{this.props.price.symbol}{this.props.price.amount}</S.Price>
         </S.ProductInfo>
       </S.Container>
     )
