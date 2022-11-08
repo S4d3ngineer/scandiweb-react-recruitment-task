@@ -5,10 +5,9 @@ import { client } from 'index';
 import { ProductData, Attribute, AttributeSet } from './ProductData';
 import { withParams, WithParamsProps } from 'utils/wrappers';
 import { PrimaryButton } from 'components/buttons/Buttons.styled';
+import CurrencyContext from 'CurrencyContext';
 
-interface Props extends WithParamsProps {
-  currency: string;
-}
+interface Props extends WithParamsProps { }
 
 interface State {
   productData: ProductData | null;
@@ -22,6 +21,9 @@ class ProductDescription extends React.Component<Props, State> {
     selectedPhoto: undefined,
     selectedAttributes: {}
   }
+
+  static contextType = CurrencyContext;
+  context!: React.ContextType<typeof CurrencyContext>;
 
   getProductData = async () => {
     const response = await client.query(
@@ -123,7 +125,7 @@ class ProductDescription extends React.Component<Props, State> {
   }
 
   getPrice = (): {symbol: string | undefined, amount: number | undefined} => {
-    const price = this.state.productData?.prices.find(price => price.currency.label === this.props.currency);
+    const price = this.state.productData?.prices.find(price => price.currency.label === this.context?.currency);
     const symbol = price?.currency.symbol;
     const amount = price?.amount;
     return { symbol, amount };
@@ -153,7 +155,7 @@ class ProductDescription extends React.Component<Props, State> {
           {this.renderAttributes()}
           <h6>PRICE: </h6>
           <S.Price>{symbol + ' ' + amount}</S.Price>
-          <PrimaryButton className='primary' $width={280} $fontSize={16}>ADD TO CART</PrimaryButton>
+          <PrimaryButton $width={280} $fontSize={16}>ADD TO CART</PrimaryButton>
           <S.Description dangerouslySetInnerHTML={{ __html: desc }} />
         </S.Panel>
       </S.Container>

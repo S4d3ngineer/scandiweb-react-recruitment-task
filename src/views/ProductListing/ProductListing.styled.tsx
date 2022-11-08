@@ -20,7 +20,6 @@ export const HeadingContainer = styled.div`
   }
 `
 
-
 export const ProductList = styled.div`
   display: flex;
   flex-direction: row;

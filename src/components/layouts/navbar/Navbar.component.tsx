@@ -1,8 +1,8 @@
 import React from "react";
 import * as S from "./Navbar.styled";
-import { ReactComponent as Vector } from "assets/icons/Vector.svg";
 import { Link, NavLink } from "react-router-dom";
 import { withParams, WithParamsProps } from "utils/wrappers";
+import CurrencyPicker from "./currency-picker/CurrencyPicker.component";
 
 export interface NavbarProps {
   /** Names of product categories */
@@ -22,7 +22,7 @@ class Navbar extends React.Component<Props, {}> {
       </NavLink>
     ))
   }
-
+  
   render() {
     if (!this.props.categories) {
       return null;
@@ -36,7 +36,7 @@ class Navbar extends React.Component<Props, {}> {
           </Link>
         </S.LogoContainer>
         <S.Menu>
-          <S.CurrencyPicker>$<Vector /></S.CurrencyPicker>
+          <CurrencyPicker />
           <S.CartIcon />
         </S.Menu>
       </S.FlexBox>

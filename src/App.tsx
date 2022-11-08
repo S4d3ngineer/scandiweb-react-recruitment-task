@@ -4,12 +4,9 @@ import { client } from './index';
 import ProductListing from 'views/ProductListing/ProductListing.component';
 import { Route, Routes } from 'react-router-dom';
 import ProductDescription from 'views/ProductDescription/ProductDescription.component';
-import { withParams, WithParamsProps } from 'utils/wrappers';
 import { categoryNamesQuery } from './App.queries';
 import Layout from 'components/layouts/Layout';
-
-
-interface Props extends WithParamsProps { }
+import { CurrencyProvider } from 'CurrencyContext';
 
 interface State {
   categoryNames: null | string[];
@@ -17,17 +14,23 @@ interface State {
   selectedCurrency: string;
 }
 
-class App extends React.Component<Props, State> {
+export default class App extends React.Component<{}, State> {
   state: State = {
     categoryNames: null,
     selectedCategory: 'all',
-    selectedCurrency: 'USD',
+    selectedCurrency: localStorage.getItem('currency') || 'USD'
   }
 
   getCategoryNames = async () => {
     const response = await client.query({ query: categoryNamesQuery });
     const namesList = response.data.categories.map((category: { name: string }) => category.name);
     this.setState({ categoryNames: namesList });
+  }
+
+  handleCurrencySelection = (currency: string): void => {
+    this.setState({
+      selectedCategory: currency
+    })
   }
 
   componentDidMount() {
@@ -38,16 +41,16 @@ class App extends React.Component<Props, State> {
     return (
       <div className="App">
         <header className="App-header"></header>
-        <Routes>
-          <Route path="/" element={<Layout categories={this.state.categoryNames} />} >
-            <Route index element={<ProductListing currency={this.state.selectedCurrency} />} />
-            <Route path=":category" element={<ProductListing currency={this.state.selectedCurrency} />} />
-            <Route path="product/:id" element={<ProductDescription currency={this.state.selectedCurrency} />} />
-          </Route>
-        </Routes>
+        <CurrencyProvider>
+          <Routes>
+            <Route path="/" element={<Layout categories={this.state.categoryNames} />} >
+              <Route index element={<ProductListing />} />
+              <Route path=":category" element={<ProductListing />} />
+              <Route path="product/:id" element={<ProductDescription />} />
+            </Route>
+          </Routes>
+        </CurrencyProvider>
       </div>
     );
   }
 }
-
-export default withParams(App);
