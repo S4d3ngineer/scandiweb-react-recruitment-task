@@ -95,7 +95,7 @@ export default class CurrencyPicker extends React.Component<{}, State> {
           <button onClick={this.showMenu}>
             <S.IconContainer>
               {selectedCurrencySymbol}
-              <Vector />
+              <Vector className={this.state.isShown ? 'active' : ''} />
             </S.IconContainer>
           </button>
         }

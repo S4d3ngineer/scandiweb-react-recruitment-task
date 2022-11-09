@@ -8,8 +8,11 @@ export const IconContainer = styled.div`
   &:hover {
     cursor: pointer;
     color: ${props => props.theme.colors.primary};
-      * {
-        stroke: ${props => props.theme.colors.primary};
+    * {
+      stroke: ${props => props.theme.colors.primary};
     }
+  }
+  .active {
+    transform: rotate(180deg);
   }
 `
