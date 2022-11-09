@@ -1,12 +1,18 @@
 import styled from "styled-components";
-import { ReactComponent as Cart } from 'assets/icons/Cart.svg';
 import { ReactComponent as Logo } from 'assets/icons/Logo.svg';
+
+export const Wrapper = styled.div`
+  position: relative;
+  z-index: 2;
+  padding: 0 auto;
+  background-color: white;
+`
 
 export const FlexBox = styled.div`
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   margin: 0 auto;
-  padding: 30px 100px;
+  padding: 30px 100px 0 100px;
   @media (max-width: 1440px) {
     padding: 30px 7vw;
   }
@@ -56,10 +62,4 @@ export const Menu = styled.div`
 
 export const LogoIcon = styled(Logo)`
   justify-self: center;
-`
-
-export const CartIcon = styled(Cart)`
-  &:hover * {
-    fill: ${props => props.theme.colors.primary};
-  }
 `

@@ -1,6 +1,7 @@
 import styled from "styled-components";
 
 // TODO edit (move EEE to themes?)
+// TODO change colors
 export const DropdownContent = styled.div`
   position: absolute;
   background-color: #FFF;

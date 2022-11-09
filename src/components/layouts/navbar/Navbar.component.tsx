@@ -7,6 +7,7 @@ import CurrencyPicker from "./currency-picker/CurrencyPicker.component";
 export interface NavbarProps {
   /** Names of product categories */
   categories: string[] | null;
+  cart: React.ReactNode;
 }
 
 interface Props extends NavbarProps, WithParamsProps {
@@ -28,18 +29,20 @@ class Navbar extends React.Component<Props, {}> {
       return null;
     }
     return (
-      <S.FlexBox>
-        <S.CategoryFilters>{this.renderCategoryFilters()}</S.CategoryFilters>
-        <S.LogoContainer>
-          <Link to="/">
-            <S.LogoIcon />
-          </Link>
-        </S.LogoContainer>
-        <S.Menu>
-          <CurrencyPicker />
-          <S.CartIcon />
-        </S.Menu>
-      </S.FlexBox>
+      <S.Wrapper>
+        <S.FlexBox>
+          <S.CategoryFilters>{this.renderCategoryFilters()}</S.CategoryFilters>
+          <S.LogoContainer>
+            <Link to="/">
+              <S.LogoIcon />
+            </Link>
+          </S.LogoContainer>
+          <S.Menu>
+            <CurrencyPicker />
+            {this.props.cart}
+          </S.Menu>
+        </S.FlexBox>
+      </S.Wrapper>
     )
   }
 }

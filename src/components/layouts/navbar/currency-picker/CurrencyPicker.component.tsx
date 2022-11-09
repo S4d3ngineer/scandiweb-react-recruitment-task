@@ -35,11 +35,10 @@ export default class CurrencyPicker extends React.Component<{}, State> {
   // declare in interface type of elements reveiced as children inside DropdownMenu
   renderCurrencies = (): ReactElement => {
     const currencyOptions = this.state.currencies?.map((currency: Currency) => (
-      <span key={currency.label} onClick={() => this.handleCurrencySelection(currency.label)}>
+      <span key={currency.label} onClick={() => this.handleCurrencySelection(currency)}>
         {currency.symbol + ' ' + currency.label}
       </span>
-    )
-    )
+    ))
     return (
       <>
         {currencyOptions}
@@ -47,19 +46,9 @@ export default class CurrencyPicker extends React.Component<{}, State> {
     );
   }
 
-  handleCurrencySelection = (label: string) => {
+  handleCurrencySelection = (label: Currency ) => {
     this.context?.handleCurrencySelection(label);
     this.hideMenu();
-  }
-
-  getSelectedCurrencySymbol = (): string | null => {
-    const selectedCurrency = this.state.currencies?.find((currency: Currency) => currency.label === this.context?.currency)?.symbol;
-    if (selectedCurrency) {
-      return selectedCurrency;
-    }
-    else {
-      return null;
-    }
   }
 
   showMenu = () => {
@@ -67,9 +56,7 @@ export default class CurrencyPicker extends React.Component<{}, State> {
       this.setState({
         isShown: true
       })
-    } else {
-      console.log('else' + this.state.isShown)
-    }
+    } 
   }
 
   hideMenu = () => {
@@ -88,13 +75,12 @@ export default class CurrencyPicker extends React.Component<{}, State> {
     if (!this.state.currencies) {
       return null
     }
-    const selectedCurrencySymbol = this.getSelectedCurrencySymbol();
     return (
       <DropdownMenu
         button={
           <button onClick={this.showMenu}>
             <S.IconContainer>
-              {selectedCurrencySymbol}
+              {this.context?.currency.symbol}
               <Vector className={this.state.isShown ? 'active' : ''} />
             </S.IconContainer>
           </button>

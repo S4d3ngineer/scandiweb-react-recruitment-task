@@ -40,7 +40,7 @@ class ProductListing extends React.Component<Props, State> {
 
   renderProductList = (): ReactElement => {
     const productListContent = this.state.productsData?.products.map(product => {
-      const price = product.prices.find(price => price.currency.label === this.context?.currency);
+      const price = product.prices.find(price => price.currency.label === this.context?.currency.label);
       const trimmedPrice = {
         symbol: price?.currency.symbol,
         amount: price?.amount

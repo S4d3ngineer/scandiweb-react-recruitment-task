@@ -1,8 +1,9 @@
 import React from "react";
+import { Currency } from "views/ProductDescription/ProductData";
 
 interface ContextInterface {
-  currency: string;
-  handleCurrencySelection: (currency: string) => void;
+  currency: Currency;
+  handleCurrencySelection: (currency: Currency) => void;
 }
 
 const CurrencyContext = React.createContext<ContextInterface | null>(null);
@@ -12,15 +13,24 @@ interface Props {
 }
 
 interface State {
-  currency: string
+  currency: Currency;
 }
 
 export class CurrencyProvider extends React.Component<Props, State> {
-  state = {
-    currency: localStorage.getItem('currency') || 'USD',
+  getSavedCurrency = () => {
+    const currency = localStorage.getItem('currency');
+    const fallbackCurrency = {
+      label: 'USD',
+      symbol: '$'
+    }
+    return currency ? JSON.parse(currency) : fallbackCurrency;
   }
   
-  handleCurrencySelection = (currency: string) => {
+  state: State = {
+    currency: this.getSavedCurrency()
+  }
+
+  handleCurrencySelection = (currency: Currency) => {
       this.setState({
         currency: currency 
       })
@@ -28,7 +38,7 @@ export class CurrencyProvider extends React.Component<Props, State> {
 
   componentDidUpdate(_: Props, prevState: State) {
     if (this.state.currency !== prevState.currency) {
-      localStorage.setItem('currency', this.state.currency);
+      localStorage.setItem('currency', JSON.stringify(this.state.currency));
     } 
   }
 

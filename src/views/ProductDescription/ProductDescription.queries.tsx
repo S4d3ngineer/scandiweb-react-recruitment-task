@@ -3,6 +3,7 @@ import { gql } from "@apollo/client";
 export const productDataQuery = gql`
   query getProductData($id: String!) {
     product(id: $id) {
+      id
       name
       inStock
       gallery

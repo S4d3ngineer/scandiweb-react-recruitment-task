@@ -1,32 +1,33 @@
 export interface ProductData {
+  id: string;
   name: string;
   inStock: boolean;
   gallery: string[];
   description: string;
-  attributes: AttributeSet[];
+  attributes: Attribute[];
   prices: Price[];
   brand: string;
 }
 
-export interface AttributeSet {
+export interface Attribute {
   id: string;
   name: string;
   type: string;
-  items: Attribute[];
+  items: AttributeItem[];
 }
 
-export interface Attribute {
+export interface AttributeItem {
   displayValue: string;
   value: string;
   id: string;
 }
 
-interface Price {
+export interface Price {
   currency: Currency;
   amount: number;
 }
 
-interface Currency {
+export interface Currency {
   label: string;
   symbol: string;
 }
