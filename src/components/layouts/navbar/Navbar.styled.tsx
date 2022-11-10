@@ -8,7 +8,7 @@ export const Wrapper = styled.div`
   background-color: white;
 `
 
-export const FlexBox = styled.div`
+export const GridBox = styled.div`
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   margin: 0 auto;

@@ -30,7 +30,7 @@ class Navbar extends React.Component<Props, {}> {
     }
     return (
       <S.Wrapper>
-        <S.FlexBox>
+        <S.GridBox>
           <S.CategoryFilters>{this.renderCategoryFilters()}</S.CategoryFilters>
           <S.LogoContainer>
             <Link to="/">
@@ -41,7 +41,7 @@ class Navbar extends React.Component<Props, {}> {
             <CurrencyPicker />
             {this.props.cart}
           </S.Menu>
-        </S.FlexBox>
+        </S.GridBox>
       </S.Wrapper>
     )
   }
