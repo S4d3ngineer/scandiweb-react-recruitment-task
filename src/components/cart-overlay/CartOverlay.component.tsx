@@ -1,4 +1,3 @@
-import { Cart, CartAction, CartItemData, UpdateCart } from "App";
 import { OutlineButton, PrimaryButton } from "components/buttons/Buttons.styled";
 import CurrencyContext from "contexts/CurrencyContext";
 import React, { ReactElement } from "react";
@@ -7,6 +6,7 @@ import * as S from './CartOverlay.styled';
 import { ReactComponent as PlusSquare } from "assets/icons/PlusSquare.svg";
 import { ReactComponent as MinusSquare } from "assets/icons/MinusSquare.svg";
 import { getPrice } from "utils/helpers";
+import { Cart, CartAction, CartItemData, UpdateCart } from "utils/cart";
 
 interface Props {
   cart: Cart;

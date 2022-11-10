@@ -6,7 +6,7 @@ import { ProductData, AttributeItem, Attribute } from './ProductData';
 import { withParams, WithParamsProps } from 'utils/wrappers';
 import { PrimaryButton } from 'components/buttons/Buttons.styled';
 import CurrencyContext from 'contexts/CurrencyContext';
-import { CartAction, UpdateCart } from 'App';
+import { CartAction, UpdateCart } from 'utils/cart';
 import { getPrice } from 'utils/helpers';
 
 interface Props extends WithParamsProps {
