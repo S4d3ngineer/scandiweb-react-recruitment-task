@@ -9,7 +9,7 @@ import Navbar from 'components/layouts/navbar/Navbar.component';
 import CartOverlay from 'components/cart-overlay/CartOverlay.component';
 import { AttributeItem, Attribute, ProductData } from 'views/ProductDescription/ProductData';
 import { DimmingOverlay } from 'components/dimming-overlay/DimmingOverlay';
-import CurrencyContext from 'CurrencyContext';
+import CurrencyContext from 'contexts/CurrencyContext';
 
 interface State {
   categoryNames: null | string[];

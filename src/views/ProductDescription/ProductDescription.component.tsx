@@ -5,7 +5,7 @@ import { client } from 'index';
 import { ProductData, AttributeItem, Attribute } from './ProductData';
 import { withParams, WithParamsProps } from 'utils/wrappers';
 import { PrimaryButton } from 'components/buttons/Buttons.styled';
-import CurrencyContext from 'CurrencyContext';
+import CurrencyContext from 'contexts/CurrencyContext';
 import { CartAction, UpdateCart } from 'App';
 import { getPrice } from 'utils/helpers';
 

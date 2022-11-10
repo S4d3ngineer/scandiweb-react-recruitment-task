@@ -4,7 +4,7 @@ import { ReactComponent as Vector } from "assets/icons/Vector.svg";
 import DropdownMenu from "components/dropdown-menu/DropdownMenu.component";
 import { client } from "index";
 import { currenciesQuery } from "./CurrencyPicker.queries";
-import CurrencyContext from "CurrencyContext";
+import CurrencyContext from "contexts/CurrencyContext";
 
 interface State {
   currencies: Currency[] | null;

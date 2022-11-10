@@ -1,4 +1,4 @@
-import CurrencyContext from "CurrencyContext";
+import CurrencyContext from "contexts/CurrencyContext";
 import React from "react";
 import * as S from "./DropdownMenu.styles";
 

@@ -1,6 +1,6 @@
 import { Cart, CartAction, CartItemData, UpdateCart } from "App";
 import { OutlineButton, PrimaryButton } from "components/buttons/Buttons.styled";
-import CurrencyContext from "CurrencyContext";
+import CurrencyContext from "contexts/CurrencyContext";
 import React, { ReactElement } from "react";
 import { AttributeItem, Attribute } from "views/ProductDescription/ProductData";
 import * as S from './CartOverlay.styled';
