@@ -1,4 +1,4 @@
-import { Cart, ProductCartData } from "App";
+import { Cart, CartAction, CartItemData, UpdateCart } from "App";
 import { OutlineButton, PrimaryButton } from "components/buttons/Buttons.styled";
 import CurrencyContext from "CurrencyContext";
 import React, { ReactElement } from "react";
@@ -6,10 +6,12 @@ import { AttributeItem, Attribute } from "views/ProductDescription/ProductData";
 import * as S from './CartOverlay.styled';
 import { ReactComponent as PlusSquare } from "assets/icons/PlusSquare.svg";
 import { ReactComponent as MinusSquare } from "assets/icons/MinusSquare.svg";
+import { getPrice } from "utils/helpers";
 
 interface Props {
   cart: Cart;
   dimmSetter: (isDimmed: boolean) => void;
+  updateCart: UpdateCart;
 }
 
 interface State {
@@ -51,27 +53,32 @@ export default class CartOverlay extends React.Component<Props, State> {
   }
 
   renderCartItems = () => {
-    const cartItems = this.props.cart.items.map((product: ProductCartData) =>
-      <S.Item key={product.id}>
-        <S.ItemInfo>
-          <S.NameContainer>
-            <div>{product.brand}</div>
-            <div>{product.name}</div>
-          </S.NameContainer>
-          {this.renderAttributes(product)}
-        </S.ItemInfo>
-        <S.CountManipulator>
-          <button>
-            <PlusSquare />
-          </button>
-          {0}
-          <button>
-            <MinusSquare />
-          </button>
-        </S.CountManipulator>
-        <img alt={product.name + ' photo'} src={product.gallery[0]} />
-      </S.Item>
-    )
+    const cartItemsEntries = Object.entries(this.props.cart.items);
+    const cartItems = cartItemsEntries.map(([id, product]) => {
+      const { symbol, amount } = getPrice(product.prices, this.context?.currency.label);
+      return (
+        <S.Item key={id}>
+          <S.ItemInfo>
+            <S.NameContainer>
+              <div>{product.brand}</div>
+              <div>{product.name}</div>
+            </S.NameContainer>
+            <S.Price>{symbol}{amount}</S.Price>
+            {this.renderAttributes(product)}
+          </S.ItemInfo>
+          <S.CountManipulator>
+            <button onClick={() => this.props.updateCart(CartAction.Add, id)}>
+              <PlusSquare />
+            </button>
+            {product.count}
+            <button onClick={() => this.props.updateCart(CartAction.Remove, id)}>
+              <MinusSquare />
+            </button>
+          </S.CountManipulator>
+          <img alt={product.name + ' photo'} src={product.gallery[0]} />
+        </S.Item>
+      )
+    })
     return (
       <>
         {cartItems}
@@ -79,7 +86,7 @@ export default class CartOverlay extends React.Component<Props, State> {
     )
   }
 
-  renderAttributes = (product: ProductCartData): ReactElement => {
+  renderAttributes = (product: CartItemData): ReactElement => {
     const attributeElements = product.attributes.map((attribute: Attribute) =>
       <React.Fragment key={attribute.id}>
         <h5>{attribute.name}:</h5>
@@ -100,7 +107,7 @@ export default class CartOverlay extends React.Component<Props, State> {
     )
   }
 
-  renderAttributeItems = (attributeItems: AttributeItem[], attributeType: string, attributeId: string, selectedAttributes: ProductCartData['selectedAttributes']): ReactElement => {
+  renderAttributeItems = (attributeItems: AttributeItem[], attributeType: string, attributeId: string, selectedAttributes: CartItemData['selectedAttributes']): ReactElement => {
 
     let attributeElement: (attributeItem: AttributeItem) => ReactElement;
 
@@ -155,6 +162,9 @@ export default class CartOverlay extends React.Component<Props, State> {
   }
 
   render() {
+    const currencySymbol = this.context?.currency.symbol;
+    const price = this.props.cart.totalPrice;
+    const formattedPrice = price === 'error'? price : price.toFixed(2);
     return (
       <S.Container>
         <button onClick={this.showMenu}>
@@ -166,9 +176,9 @@ export default class CartOverlay extends React.Component<Props, State> {
             <S.Items>
               {this.renderCartItems()}
             </S.Items>
-            <S.Summary><span>Total</span><span>{this.context?.currency.symbol}0</span></S.Summary>
+            <S.Summary><span>Total</span><span>{currencySymbol}{formattedPrice}</span></S.Summary>
             <S.ButtonsContainer>
-              <OutlineButton $width={140} $height={40} $fontSize={14}>VIEW BAG</OutlineButton> 
+              <OutlineButton $width={140} $height={40} $fontSize={14}>VIEW BAG</OutlineButton>
               <PrimaryButton $width={140} $height={40} $fontSize={14}>CHECK OUT</PrimaryButton>
             </S.ButtonsContainer>
           </S.Overlay>

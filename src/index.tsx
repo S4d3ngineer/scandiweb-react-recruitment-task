@@ -6,6 +6,7 @@ import { ApolloClient, InMemoryCache, ApolloProvider, gql } from '@apollo/client
 import { BrowserRouter } from 'react-router-dom';
 import { GlobalStyles, theme } from 'global-styles'; 
 import { ThemeProvider } from 'styled-components'; 
+import { CurrencyProvider } from 'CurrencyContext';
 
 export const client = new ApolloClient({
   uri: "http://localhost:4000",
@@ -31,8 +32,10 @@ root.render(
     <BrowserRouter>
       <ApolloProvider client={client}>
         <ThemeProvider theme={theme}>
-          <GlobalStyles />
-          <App />
+          <CurrencyProvider>
+            <GlobalStyles />
+            <App />
+          </CurrencyProvider>
         </ThemeProvider>
       </ApolloProvider>
     </BrowserRouter>

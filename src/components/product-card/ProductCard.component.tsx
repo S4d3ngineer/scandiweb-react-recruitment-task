@@ -1,19 +1,25 @@
+import CurrencyContext from 'CurrencyContext';
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { getPrice } from 'utils/helpers';
+import { Price } from 'views/ProductDescription/ProductData';
 import * as S from './ProductCard.styled';
 
 interface Props {
   id: string;
   img: string;
   name: string;
-  price: {
-    symbol: string | undefined;
-    amount: number | undefined;
-  };
+  prices: Price[];
 }
 
 export default class ProductCard extends React.Component<Props> {
+
+  static contextType = CurrencyContext;
+  context!: React.ContextType<typeof CurrencyContext>;
+
   render() {
+    const { symbol, amount } = getPrice(this.props.prices, this.context?.currency.label);
+    const formattedAmount = amount?.toFixed(2)
     return (
       <S.Container>
         <Link to={`/product/${this.props.id}`}>
@@ -21,7 +27,7 @@ export default class ProductCard extends React.Component<Props> {
         </Link>
         <S.ProductInfo>
           <S.ProductName><Link to={`/product/${this.props.id}`}>{this.props.name}</Link></S.ProductName>
-          <S.Price>{this.props.price.symbol}{this.props.price.amount}</S.Price>
+          <S.Price>{symbol}{formattedAmount}</S.Price>
         </S.ProductInfo>
       </S.Container>
     )

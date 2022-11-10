@@ -3,7 +3,7 @@ import { Currency } from "views/ProductDescription/ProductData";
 
 interface ContextInterface {
   currency: Currency;
-  handleCurrencySelection: (currency: Currency) => void;
+  setCurrencyAsSelected: (currency: Currency) => void;
 }
 
 const CurrencyContext = React.createContext<ContextInterface | null>(null);
@@ -30,7 +30,7 @@ export class CurrencyProvider extends React.Component<Props, State> {
     currency: this.getSavedCurrency()
   }
 
-  handleCurrencySelection = (currency: Currency) => {
+  setCurrencyAsSelected = (currency: Currency) => {
       this.setState({
         currency: currency 
       })
@@ -44,11 +44,11 @@ export class CurrencyProvider extends React.Component<Props, State> {
 
   render() {
     const { currency } = this.state;
-    const handleCurrencySelection = this.handleCurrencySelection;
+    const setCurrencyAsSelected = this.setCurrencyAsSelected;
     return(
       <CurrencyContext.Provider value={{
           currency,
-          handleCurrencySelection
+          setCurrencyAsSelected
         }}
       >
         {this.props.children}

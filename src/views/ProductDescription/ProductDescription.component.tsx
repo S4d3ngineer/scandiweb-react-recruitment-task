@@ -6,10 +6,11 @@ import { ProductData, AttributeItem, Attribute } from './ProductData';
 import { withParams, WithParamsProps } from 'utils/wrappers';
 import { PrimaryButton } from 'components/buttons/Buttons.styled';
 import CurrencyContext from 'CurrencyContext';
-import { ProductCartData } from 'App';
+import { CartAction, UpdateCart } from 'App';
+import { getPrice } from 'utils/helpers';
 
 interface Props extends WithParamsProps {
-  addToCart: (item: ProductCartData | null) => void;
+  updateCart: UpdateCart,
 }
 
 interface State {
@@ -133,26 +134,20 @@ class ProductDescription extends React.Component<Props, State> {
   }
 
   /**
-  * If all attributes are slected add the item to the cart
+  * If all attributes are selected add the item to the cart
   */
-  handleAddToCartClick = () => {
+  addToCartClick = () => {
     if (Object.keys(this.state.selectedAttributes).length === this.state.productData?.attributes.length) {
-      const productCartData = {
+      let itemId = this.state.productData.id;
+      const attributesKeys = Object.values(this.state.selectedAttributes);
+      attributesKeys.forEach((attribute: string) => itemId = itemId + '__' + attribute)
+      const itemToAdd = {
         ...this.state.productData,
-        selectedAttributes: this.state.selectedAttributes
+        selectedAttributes: this.state.selectedAttributes,
+        count: 1
       }
-      this.props.addToCart(productCartData)
+      this.props.updateCart(CartAction.Add, itemId, itemToAdd);
     }
-  }
-
-  /**
-  * Returns price for selected currency
-  */
-  getPrice = (): { symbol: string | undefined, amount: number | undefined } => {
-    const price = this.state.productData?.prices.find(price => price.currency.label === this.context?.currency.label);
-    const symbol = price?.currency.symbol;
-    const amount = price?.amount;
-    return { symbol, amount };
   }
 
   componentDidMount(): void {
@@ -166,7 +161,8 @@ class ProductDescription extends React.Component<Props, State> {
     const brand = this.state.productData?.brand;
     const name = this.state.productData?.name;
     const desc = this.state.productData?.description;
-    const { symbol, amount } = this.getPrice();
+    const { symbol, amount } = getPrice(this.state.productData?.prices, this.context?.currency.label);
+    const formattedAmount = amount?.toFixed(2);
     return (
       <S.Container>
         <S.ImgContainer>
@@ -178,8 +174,8 @@ class ProductDescription extends React.Component<Props, State> {
           <h2>{name}</h2>
           {this.renderAttributes()}
           <h6>PRICE: </h6>
-          <S.Price>{symbol + ' ' + amount}</S.Price>
-          <PrimaryButton onClick={this.handleAddToCartClick} $width={280} $fontSize={16}>ADD TO CART</PrimaryButton>
+          <S.Price>{symbol}{formattedAmount}</S.Price>
+          <PrimaryButton onClick={this.addToCartClick} $width={280} $fontSize={16}>ADD TO CART</PrimaryButton>
           <S.Description dangerouslySetInnerHTML={{ __html: desc }} />
         </S.Panel>
       </S.Container>

@@ -50,6 +50,7 @@ export const Item = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  padding-top: 32px;
   img {
     max-width: 120px;
     object-fit: contain;
@@ -59,13 +60,24 @@ export const Item = styled.div`
 export const ItemInfo = styled.div`
   display: flex;
   flex-direction: column;
+  width: 120px;
   gap: 8px;
+  h5 {
+    padding-top: 8px;
+  }
 `
 
 export const NameContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
   font-size: 16px;
   font-weight: 300;
-  padding-top: 32px;
+`
+
+export const Price = styled.div`
+  font-size: 16px;
+  font-weight: 500;
 `
 
 export const AttributeItems = styled.div`
@@ -84,7 +96,6 @@ export const AttributeBox = styled.div`
   border: 1px solid #1D1F22;
   min-width: 24px;
   height: 24px;
-  margin-top: 8px;
   padding: 2px 4px;
   cursor: pointer;
   &.selected {
@@ -98,7 +109,6 @@ export const SwatchAttributeBox = styled.div`
   border: 1px solid #1D1F22;
   width: 16px;
   height: 16px;
-  margin-top: 10px;
   cursor: pointer;
   &.selected {
     border: 1px solid white;

@@ -47,7 +47,7 @@ export default class CurrencyPicker extends React.Component<{}, State> {
   }
 
   handleCurrencySelection = (label: Currency ) => {
-    this.context?.handleCurrencySelection(label);
+    this.context?.setCurrencyAsSelected(label);
     this.hideMenu();
   }
 

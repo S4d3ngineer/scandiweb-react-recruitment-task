@@ -1,5 +1,4 @@
 import ProductCard from "components/product-card/ProductCard.component";
-import CurrencyContext from "CurrencyContext";
 import { client } from "index";
 import React, { ReactElement } from "react";
 import { withParams, WithParamsProps } from "utils/wrappers";
@@ -20,9 +19,6 @@ class ProductListing extends React.Component<Props, State> {
     productsData: null
   }
 
-  static contextType = CurrencyContext;
-  context!: React.ContextType<typeof CurrencyContext>;
-
   getProductsData = async () => {
     const response = await client.query({
       query: categoryDataQuery,
@@ -40,12 +36,7 @@ class ProductListing extends React.Component<Props, State> {
 
   renderProductList = (): ReactElement => {
     const productListContent = this.state.productsData?.products.map(product => {
-      const price = product.prices.find(price => price.currency.label === this.context?.currency.label);
-      const trimmedPrice = {
-        symbol: price?.currency.symbol,
-        amount: price?.amount
-      }
-      return <ProductCard id={product.id} img={product.gallery[0]} name={product.name} price={trimmedPrice} key={product.id} />
+      return <ProductCard id={product.id} img={product.gallery[0]} name={product.name} prices={product.prices} key={product.id} />
     })
     return (
       <React.Fragment>
