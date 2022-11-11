@@ -66,30 +66,26 @@ export default class App extends React.Component<{}, State> {
 
   // TODO pass all props at once
   render() {
+
+    const cartOverlay = <CartOverlay
+      cart={this.state.cart}
+      dimmSetter={this.setDimmedOverlay}
+      updateCart={this.updateCart}
+    />
+    const navbar = <Navbar
+      categories={this.state.categoryNames}
+      cart={cartOverlay}
+    />
+    const layout = <Layout
+      navbar={navbar}
+    />
+
     return (
       <div className="App">
         <header className="App-header"></header>
         {this.state.isDimmed && <DimmingOverlay />}
         <Routes>
-          <Route
-            path="/"
-            element={
-              <Layout
-                navbar={
-                  <Navbar
-                    categories={this.state.categoryNames}
-                    cart={
-                      <CartOverlay
-                        cart={this.state.cart} 
-                        dimmSetter={this.setDimmedOverlay} 
-                        updateCart={this.updateCart}
-                      />
-                    }
-                  />
-                }
-              />
-            }
-          >
+          <Route path="/" element={layout} >
             <Route index element={<ProductListing />} />
             <Route path=":category" element={<ProductListing />} />
             <Route path="product/:id" element={<ProductDescription updateCart={this.updateCart} />} />
