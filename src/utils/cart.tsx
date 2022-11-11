@@ -38,24 +38,7 @@ export const updateCart: UpdateCart = function updateCart(this: App , action, it
   const cart = this.state.cart;
   const existingItem = cart.items[itemId];
 
-  /** Returns number of all items in cart */
-  const getItemsCount = ((items: CartItems) => {
-    return Object.values(items).map((item) => item.count)
-      .reduce((prev, curr) => prev + curr, 0)
-  })
-
-  const getTotalPrice = ((items: CartItems) => {
-    let arrOfSmth: number[] | string = [];
-    for (const item of Object.values(items)) {
-      const itemPrice = item.prices.find((price) => price.currency.label === this.context?.currency.label)?.amount;
-      if (!itemPrice) {
-        arrOfSmth = 'error';
-        break;
-      }
-      arrOfSmth.push((itemPrice * item.count));
-    }
-    return typeof(arrOfSmth) === 'string' ? 'error' : arrOfSmth.reduce((prev, curr) => prev + curr, 0);
-  })
+  const currency = this.context?.currency.label;
 
   if (existingItem) {
     switch (action) {
@@ -69,9 +52,10 @@ export const updateCart: UpdateCart = function updateCart(this: App , action, it
         }
         this.setState({
           cart: {
+            ...cart,
             items: updatedItems,
             itemCount: getItemsCount(updatedItems),
-            totalPrice: getTotalPrice(updatedItems)
+            totalPrice: getTotalPrice(updatedItems, currency)
           }
         })
         break;
@@ -82,9 +66,10 @@ export const updateCart: UpdateCart = function updateCart(this: App , action, it
           const { [itemId]: removedItemId, ...updatedItems } = cart.items;
           this.setState({
             cart: {
+              ...cart,
               items: updatedItems,
               itemCount: getItemsCount(updatedItems),
-              totalPrice: getTotalPrice(updatedItems)
+              totalPrice: getTotalPrice(updatedItems, currency)
             }
           })
         } else {
@@ -97,9 +82,10 @@ export const updateCart: UpdateCart = function updateCart(this: App , action, it
           }
           this.setState({
             cart: {
+              ...cart,
               items: updatedItems,
               itemCount: getItemsCount(updatedItems),
-              totalPrice: getTotalPrice(updatedItems)
+              totalPrice: getTotalPrice(updatedItems, currency)
             }
           })
         }
@@ -112,10 +98,30 @@ export const updateCart: UpdateCart = function updateCart(this: App , action, it
     }
     this.setState({
       cart: {
+        ...cart,
         items: updatedItems,
         itemCount: getItemsCount(updatedItems),
-        totalPrice: getTotalPrice(updatedItems)
+        totalPrice: getTotalPrice(updatedItems, currency)
       }
     })
   }
 }
+
+export const getItemsCount = ((items: CartItems) => {
+  return Object.values(items).map((item) => item.count)
+    .reduce((prev, curr) => prev + curr, 0)
+})
+
+export const getTotalPrice = ((items: CartItems, currency: string | undefined) => {
+  let arrOfSmth: number[] | string = [];
+  for (const item of Object.values(items)) {
+    const itemPrice = item.prices.find((price) => price.currency.label === currency)?.amount;
+    if (!itemPrice) {
+      arrOfSmth = 'error';
+      break;
+    }
+    arrOfSmth.push((itemPrice * item.count));
+  }
+  return typeof(arrOfSmth) === 'string' ? 'error' : arrOfSmth.reduce((prev, curr) => prev + curr, 0);
+})
+
