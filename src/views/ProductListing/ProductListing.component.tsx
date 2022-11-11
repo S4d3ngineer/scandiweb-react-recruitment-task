@@ -19,6 +19,16 @@ class ProductListing extends React.Component<Props, State> {
     productsData: null
   }
 
+  componentDidMount(): void {
+    this.getProductsData();
+  }
+
+  componentDidUpdate(prevProps: Props) {
+    if (this.props.params.category !== prevProps.params.category) {
+      this.getProductsData();
+    }
+  }
+
   getProductsData = async () => {
     const response = await client.query({
       query: categoryDataQuery,
@@ -43,16 +53,6 @@ class ProductListing extends React.Component<Props, State> {
         {productListContent}
       </ React.Fragment>
     )
-  }
-
-  componentDidMount(): void {
-    this.getProductsData();
-  }
-
-  componentDidUpdate(prevProps: Props) {
-    if (this.props.params.category !== prevProps.params.category) {
-      this.getProductsData();
-    }
   }
 
   render() {

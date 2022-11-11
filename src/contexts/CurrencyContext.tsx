@@ -17,6 +17,20 @@ interface State {
 }
 
 export class CurrencyProvider extends React.Component<Props, State> {
+  constructor(props: Props) {
+    super(props);
+
+    this.state = {
+      currency: this.getSavedCurrency()
+    }
+  }
+
+  componentDidUpdate(_: Props, prevState: State) {
+    if (this.state.currency !== prevState.currency) {
+      localStorage.setItem('currency', JSON.stringify(this.state.currency));
+    } 
+  }
+
   getSavedCurrency = () => {
     const currency = localStorage.getItem('currency');
     const fallbackCurrency = {
@@ -26,20 +40,10 @@ export class CurrencyProvider extends React.Component<Props, State> {
     return currency ? JSON.parse(currency) : fallbackCurrency;
   }
   
-  state: State = {
-    currency: this.getSavedCurrency()
-  }
-
   setCurrencyAsSelected = (currency: Currency) => {
       this.setState({
         currency: currency 
       })
-  }
-
-  componentDidUpdate(_: Props, prevState: State) {
-    if (this.state.currency !== prevState.currency) {
-      localStorage.setItem('currency', JSON.stringify(this.state.currency));
-    } 
   }
 
   render() {

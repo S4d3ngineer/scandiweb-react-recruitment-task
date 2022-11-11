@@ -10,6 +10,14 @@ interface Props {
 }
 
 export default class DropdownMenu extends React.Component<Props> {
+  componentDidMount() {
+    document.addEventListener("mousedown", this.handleClickOutside);
+  }
+
+  componentWillUnmount() {
+    document.removeEventListener("mousedown", this.handleClickOutside);
+  }
+
   static contextType = CurrencyContext;
   context!: React.ContextType<typeof CurrencyContext>;
 
@@ -21,14 +29,6 @@ export default class DropdownMenu extends React.Component<Props> {
       event.stopPropagation()
       this.props.onBlur();
     }
-  }
-
-  componentDidMount() {
-    document.addEventListener("mousedown", this.handleClickOutside);
-  }
-
-  componentWillUnmount() {
-    document.removeEventListener("mousedown", this.handleClickOutside);
   }
 
   render() {

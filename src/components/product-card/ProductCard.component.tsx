@@ -13,7 +13,6 @@ interface Props {
 }
 
 export default class ProductCard extends React.Component<Props> {
-
   static contextType = CurrencyContext;
   context!: React.ContextType<typeof CurrencyContext>;
 

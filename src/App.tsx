@@ -19,7 +19,6 @@ interface State {
 }
 
 export default class App extends React.Component<{}, State> {
-
   constructor(props: {}) {
     super(props);
 
@@ -37,6 +36,35 @@ export default class App extends React.Component<{}, State> {
     this.updateCart = updateCart.bind(this);
   }
 
+  componentDidMount() {
+    this.getCategoryNames();
+    this.initializeCart();
+    this.setState({initialized: true});
+  }
+
+  componentDidUpdate(_: {}, prevState: State): void {
+    if (this.state.cart.items !== prevState.cart?.items) {
+      localStorage.setItem('cart', JSON.stringify(this.state.cart?.items));
+    } 
+  }
+
+  static contextType = CurrencyContext;
+  context!: React.ContextType<typeof CurrencyContext>;
+
+  updateCart = updateCart; // declared inside class to be binded in constructor
+
+  /**
+   * Get category names and sets it in App component state 
+   */
+  getCategoryNames = async () => {
+    const response = await client.query({ query: categoryNamesQuery });
+    const namesList = response.data.categories.map((category: { name: string }) => category.name);
+    this.setState({ categoryNames: namesList });
+  }
+
+  /**
+   * Initialize cart state with data from local storage
+   */
   initializeCart = () => {
     const cartItemsJSON = localStorage.getItem('cart');
     const cartItems = cartItemsJSON ? JSON.parse(cartItemsJSON) : [];
@@ -49,38 +77,12 @@ export default class App extends React.Component<{}, State> {
     })
   }
 
-  static contextType = CurrencyContext;
-  context!: React.ContextType<typeof CurrencyContext>;
-
-  /**
-   * Get category names and sets it in App component state 
-   */
-  getCategoryNames = async () => {
-    const response = await client.query({ query: categoryNamesQuery });
-    const namesList = response.data.categories.map((category: { name: string }) => category.name);
-    this.setState({ categoryNames: namesList });
-  }
-
-  updateCart = updateCart; // declared inside class to be binded in constructor
-
   /**
    * Sets stated of overlay which dimms everything other than
    * navbar and it children
    */
   setDimmedOverlay = (isDimmed: boolean) => {
     this.setState({ isDimmed: isDimmed })
-  }
-
-  componentDidMount() {
-    this.getCategoryNames();
-    this.initializeCart();
-    this.setState({initialized: true});
-  }
-
-  componentDidUpdate(_: {}, prevState: State): void {
-    if (this.state.cart.items !== prevState.cart?.items) {
-      localStorage.setItem('cart', JSON.stringify(this.state.cart?.items));
-    } 
   }
 
   render() {

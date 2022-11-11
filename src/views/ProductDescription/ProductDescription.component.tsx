@@ -26,8 +26,45 @@ class ProductDescription extends React.Component<Props, State> {
     selectedAttributes: {}
   }
 
+  componentDidMount(): void {
+    this.getProductData();
+  }
+
   static contextType = CurrencyContext;
   context!: React.ContextType<typeof CurrencyContext>;
+
+  handleAttributeItemClick = (attributeId: string, itemValue: string): void => {
+    this.setState({
+      selectedAttributes: {
+        ...this.state.selectedAttributes,
+        [attributeId]: itemValue
+      }
+    })
+  }
+
+  /**
+  * If all attributes are selected add the item to the cart
+  */
+  addToCartClick = () => {
+    if (Object.keys(this.state.selectedAttributes).length === this.state.productData?.attributes.length) {
+      let itemId = this.state.productData.id;
+      const attributesKeys = Object.values(this.state.selectedAttributes);
+      attributesKeys.forEach((attribute: string) => itemId = itemId + '__' + attribute)
+      const itemToAdd = {
+        ...this.state.productData,
+        selectedAttributes: this.state.selectedAttributes,
+        count: 1
+      }
+      this.props.updateCart(CartAction.Add, itemId, itemToAdd);
+    }
+  }
+
+  handleGalleryPhotoClick = (src: string): void => {
+    const selectedSrc = src;
+    this.setState({
+      selectedPhoto: selectedSrc
+    })
+  }
 
   getProductData = async () => {
     const response = await client.query(
@@ -56,13 +93,6 @@ class ProductDescription extends React.Component<Props, State> {
     )
   }
 
-  handleGalleryPhotoClick = (src: string): void => {
-    const selectedSrc = src;
-    this.setState({
-      selectedPhoto: selectedSrc
-    })
-  }
-
   renderAttributes = (): ReactElement => {
     const attributeElements = this.state.productData?.attributes.map((attribute: Attribute) =>
       <React.Fragment key={attribute.id}>
@@ -80,7 +110,6 @@ class ProductDescription extends React.Component<Props, State> {
   }
 
   renderAttributeItems = (attributeItems: AttributeItem[], attributeType: string, attributeId: string): ReactElement => {
-
     // Function declaration for both attribute types
     let attributeElement: (attributeItem: AttributeItem) => ReactElement;
     // Check if attribute is selected and return 'selected' class string if it is
@@ -122,36 +151,6 @@ class ProductDescription extends React.Component<Props, State> {
         {itemElements}
       </React.Fragment>
     )
-  }
-
-  handleAttributeItemClick = (attributeId: string, itemValue: string): void => {
-    this.setState({
-      selectedAttributes: {
-        ...this.state.selectedAttributes,
-        [attributeId]: itemValue
-      }
-    })
-  }
-
-  /**
-  * If all attributes are selected add the item to the cart
-  */
-  addToCartClick = () => {
-    if (Object.keys(this.state.selectedAttributes).length === this.state.productData?.attributes.length) {
-      let itemId = this.state.productData.id;
-      const attributesKeys = Object.values(this.state.selectedAttributes);
-      attributesKeys.forEach((attribute: string) => itemId = itemId + '__' + attribute)
-      const itemToAdd = {
-        ...this.state.productData,
-        selectedAttributes: this.state.selectedAttributes,
-        count: 1
-      }
-      this.props.updateCart(CartAction.Add, itemId, itemToAdd);
-    }
-  }
-
-  componentDidMount(): void {
-    this.getProductData();
   }
 
   render() {

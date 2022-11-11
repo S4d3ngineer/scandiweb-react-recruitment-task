@@ -23,6 +23,20 @@ export default class CartOverlay extends React.Component<Props, State> {
     isShown: false
   }
 
+  componentDidMount() {
+    document.addEventListener("mousedown", this.handleClickOutside);
+  }
+
+  componentDidUpdate(_: Props, prevState: State): void {
+    if (this.state.isShown !== prevState.isShown) {
+      this.props.dimmSetter(this.state.isShown);
+    }
+  }
+
+  componentWillUnmount() {
+    document.removeEventListener("mousedown", this.handleClickOutside);
+  }
+
   static contextType = CurrencyContext;
   context!: React.ContextType<typeof CurrencyContext>;
 
@@ -145,20 +159,6 @@ export default class CartOverlay extends React.Component<Props, State> {
         {itemElements}
       </React.Fragment>
     )
-  }
-
-  componentDidMount() {
-    document.addEventListener("mousedown", this.handleClickOutside);
-  }
-
-  componentWillUnmount() {
-    document.removeEventListener("mousedown", this.handleClickOutside);
-  }
-
-  componentDidUpdate(_: Props, prevState: State): void {
-    if (this.state.isShown !== prevState.isShown) {
-      this.props.dimmSetter(this.state.isShown);
-    }
   }
 
   render() {
