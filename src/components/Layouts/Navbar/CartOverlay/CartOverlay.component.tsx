@@ -1,7 +1,7 @@
 import { OutlineButton, PrimaryButton } from "components/Buttons/Buttons.styled";
 import CurrencyContext from "contexts/CurrencyContext";
 import React, { ReactElement } from "react";
-import { AttributeItem, Attribute } from "views/ProductDescription/ProductData";
+import { AttributeItem, Attribute } from "utils/product-data";
 import * as S from './CartOverlay.styled';
 import { ReactComponent as PlusSquare } from "assets/icons/PlusSquare.svg";
 import { ReactComponent as MinusSquare } from "assets/icons/MinusSquare.svg";

@@ -1,5 +1,5 @@
 import React from "react";
-import { Currency } from "views/ProductDescription/ProductData";
+import { Currency } from "utils/product-data";
 
 interface ContextInterface {
   currency: Currency;

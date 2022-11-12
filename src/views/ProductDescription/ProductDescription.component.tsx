@@ -2,7 +2,7 @@ import React, { ReactElement } from 'react';
 import * as S from './ProductDescription.styled';
 import { productDataQuery } from './ProductDescription.queries';
 import { client } from 'index';
-import { ProductData, AttributeItem, Attribute } from './ProductData';
+import { ProductData, AttributeItem, Attribute } from 'utils/product-data';
 import { withParams, WithParamsProps } from 'utils/wrappers';
 import CurrencyContext from 'contexts/CurrencyContext';
 import { CartAction, UpdateCart } from 'utils/cart';

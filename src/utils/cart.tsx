@@ -1,5 +1,5 @@
 import App from "App";
-import { Attribute, AttributeItem, ProductData } from "views/ProductDescription/ProductData";
+import { Attribute, AttributeItem, ProductData } from "utils/product-data";
 
 /*
 ------This file containes type declarations, interfaces and cart logic related functions -------

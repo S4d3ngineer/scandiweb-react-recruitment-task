@@ -2,7 +2,7 @@ import CurrencyContext from 'contexts/CurrencyContext';
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { getPrice } from 'utils/helpers';
-import { Price } from 'views/ProductDescription/ProductData';
+import { Price } from 'utils/product-data';
 import * as S from './ProductCard.styled';
 
 interface Props {

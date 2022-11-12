@@ -1,4 +1,4 @@
-import { Price } from "views/ProductDescription/ProductData";
+import { Price } from "utils/product-data";
 
 /**
  * Returns symbol and and amount of price from product's array of prices for selected currency 
