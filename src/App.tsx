@@ -10,6 +10,7 @@ import CartOverlay from 'components/cart-overlay/CartOverlay.component';
 import { DimmingOverlay } from 'components/dimming-overlay/DimmingOverlay';
 import CurrencyContext from 'contexts/CurrencyContext';
 import { Cart, getItemsCount, getTotalPrice, updateCart } from 'utils/cart';
+import NotFound from 'views/NotFound/NotFound.component';
 
 interface State {
   initialized: boolean;
@@ -90,18 +91,20 @@ export default class App extends React.Component<{}, State> {
       return null
     }
 
-    const cartOverlay = <CartOverlay
-      cart={this.state.cart}
-      dimmSetter={this.setDimmedOverlay}
-      updateCart={this.updateCart}
-    />
-    const navbar = <Navbar
-      categories={this.state.categoryNames}
-      cart={cartOverlay}
-    />
-    const layout = <Layout
-      navbar={navbar}
-    />
+    const cartOverlay = (
+      <CartOverlay
+        cart={this.state.cart}
+        dimmSetter={this.setDimmedOverlay}
+        updateCart={this.updateCart}
+      />
+    )
+    const navbar = (
+      <Navbar
+        categories={this.state.categoryNames}
+        cart={cartOverlay}
+      />
+    )
+    const layout = <Layout navbar={navbar} />
 
     return (
       <div className="App">
@@ -109,10 +112,11 @@ export default class App extends React.Component<{}, State> {
         {this.state.isDimmed && <DimmingOverlay />}
         <Routes>
           <Route path="/" element={layout} >
-            <Route index element={<ProductListing />} />
-            <Route path=":category" element={<ProductListing />} />
+            <Route index element={<ProductListing categories={this.state.categoryNames} />} />
+            <Route path=":category" element={<ProductListing categories={this.state.categoryNames} />} />
             <Route path="product/:id" element={<ProductDescription updateCart={this.updateCart} />} />
           </Route>
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </div>
     );

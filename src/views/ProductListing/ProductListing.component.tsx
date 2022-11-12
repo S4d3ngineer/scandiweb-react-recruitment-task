@@ -1,21 +1,23 @@
 import ProductCard from "components/product-card/ProductCard.component";
 import { client } from "index";
 import React, { ReactElement } from "react";
+import { Navigate } from "react-router-dom";
 import { withParams, WithParamsProps } from "utils/wrappers";
+import NotFound from "views/NotFound/NotFound.component";
 import { CategoryData } from "./ProductListing.interfaces";
 import { categoryDataQuery } from "./ProductListing.queries";
 import * as S from "./ProductListing.styled";
 
-interface Props extends WithParamsProps { }
+interface Props extends WithParamsProps {
+  categories: string[] | null;
+}
 
 interface State {
-  category: string,
   productsData: CategoryData | null
 }
 
 class ProductListing extends React.Component<Props, State> {
   state: State = {
-    category: this.props.params.category || 'all',
     productsData: null
   }
 
@@ -56,6 +58,19 @@ class ProductListing extends React.Component<Props, State> {
   }
 
   render() {
+    if (!this.props.params.category) {
+      return <Navigate to="/all" replace />
+    }
+
+    if (
+      this.props.categories
+      && !(this.props.categories.includes(this.props.params.category))
+      ) {
+      console.log(this.props.params.category)
+      console.log(this.props.categories)
+      return <NotFound /> 
+    }
+
     if (!this.state.productsData) {
       return null;
     }

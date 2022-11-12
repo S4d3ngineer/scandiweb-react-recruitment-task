@@ -8,12 +8,14 @@ import { PrimaryButton } from 'components/buttons/Buttons.styled';
 import CurrencyContext from 'contexts/CurrencyContext';
 import { CartAction, UpdateCart } from 'utils/cart';
 import { getPrice } from 'utils/helpers';
+import NotFound from 'views/NotFound/NotFound.component';
 
 interface Props extends WithParamsProps {
   updateCart: UpdateCart,
 }
 
 interface State {
+  initialized: boolean;
   productData: ProductData | null;
   selectedPhoto: string | undefined;
   selectedAttributes: Record<Attribute["id"], AttributeItem["value"]>
@@ -21,6 +23,7 @@ interface State {
 
 class ProductDescription extends React.Component<Props, State> {
   state: State = {
+    initialized: false,
     productData: null,
     selectedPhoto: undefined,
     selectedAttributes: {}
@@ -28,6 +31,9 @@ class ProductDescription extends React.Component<Props, State> {
 
   componentDidMount(): void {
     this.getProductData();
+    this.setState({
+      initialized: true
+    })
   }
 
   static contextType = CurrencyContext;
@@ -76,10 +82,12 @@ class ProductDescription extends React.Component<Props, State> {
       }
     )
     const data = response.data.product;
-    this.setState({
-      productData: data,
-      selectedPhoto: data.gallery[0]
-    })
+    if (data) {
+      this.setState({
+        productData: data,
+        selectedPhoto: data.gallery[0]
+      })
+    }
   }
 
   renderGalleryElements = (): ReactElement => {
@@ -154,8 +162,11 @@ class ProductDescription extends React.Component<Props, State> {
   }
 
   render() {
-    if (!this.state.productData) {
+    if (!this.state.initialized) {
       return null;
+    }
+    if (!this.state.productData) {
+      return <NotFound />;
     }
     const brand = this.state.productData?.brand;
     const name = this.state.productData?.name;
