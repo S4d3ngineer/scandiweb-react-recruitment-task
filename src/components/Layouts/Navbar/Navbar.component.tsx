@@ -2,7 +2,7 @@ import React from "react";
 import * as S from "./Navbar.styled";
 import { Link, NavLink } from "react-router-dom";
 import { withParams, WithParamsProps } from "utils/wrappers";
-import CurrencyPicker from "./currency-picker/CurrencyPicker.component";
+import CurrencyPicker from "./CurrencyPicker/CurrencyPicker.component";
 
 export interface NavbarProps {
   /** Names of product categories */

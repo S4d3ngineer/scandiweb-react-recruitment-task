@@ -4,11 +4,11 @@ import { productDataQuery } from './ProductDescription.queries';
 import { client } from 'index';
 import { ProductData, AttributeItem, Attribute } from './ProductData';
 import { withParams, WithParamsProps } from 'utils/wrappers';
-import { PrimaryButton } from 'components/buttons/Buttons.styled';
 import CurrencyContext from 'contexts/CurrencyContext';
 import { CartAction, UpdateCart } from 'utils/cart';
 import { getPrice } from 'utils/helpers';
 import NotFound from 'views/NotFound/NotFound.component';
+import { PrimaryButton } from 'components/Buttons/Buttons.styled';
 
 interface Props extends WithParamsProps {
   updateCart: UpdateCart,

@@ -4,13 +4,13 @@ import ProductListing from 'views/ProductListing/ProductListing.component';
 import { Route, Routes } from 'react-router-dom';
 import ProductDescription from 'views/ProductDescription/ProductDescription.component';
 import { categoryNamesQuery } from './App.queries';
-import Layout from 'components/layouts/Layout';
-import Navbar from 'components/layouts/navbar/Navbar.component';
-import CartOverlay from 'components/cart-overlay/CartOverlay.component';
-import { DimmingOverlay } from 'components/dimming-overlay/DimmingOverlay';
 import CurrencyContext from 'contexts/CurrencyContext';
 import { Cart, getItemsCount, getTotalPrice, updateCart } from 'utils/cart';
 import NotFound from 'views/NotFound/NotFound.component';
+import Layout from 'components/Layouts/Layout';
+import Navbar from 'components/Layouts/Navbar/Navbar.component';
+import { DimmingOverlay } from 'components/DimmingOverlay/DimmingOverlay';
+import CartOverlay from 'components/Layouts/Navbar/CartOverlay/CartOverlay.component';
 
 interface State {
   initialized: boolean;

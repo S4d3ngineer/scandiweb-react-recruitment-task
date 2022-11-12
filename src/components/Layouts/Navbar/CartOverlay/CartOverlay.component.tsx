@@ -1,4 +1,4 @@
-import { OutlineButton, PrimaryButton } from "components/buttons/Buttons.styled";
+import { OutlineButton, PrimaryButton } from "components/Buttons/Buttons.styled";
 import CurrencyContext from "contexts/CurrencyContext";
 import React, { ReactElement } from "react";
 import { AttributeItem, Attribute } from "views/ProductDescription/ProductData";
