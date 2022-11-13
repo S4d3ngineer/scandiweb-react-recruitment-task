@@ -32,15 +32,20 @@ export default class DropdownMenu extends React.Component<Props> {
   }
 
   render() {
+    const { button, isShown } = this.props;
+
     return(
+    <>
       <S.Dropdown>
-        {this.props.button}
-        {this.props.isShown && (
+        {button}
+        {isShown && (
           <S.DropdownContent ref={this.wrapperRef}>
             {this.props.children}
           </S.DropdownContent>
         )}
       </S.Dropdown>
+      {isShown && <S.EventShield />}
+    </>
     )
   }
 }

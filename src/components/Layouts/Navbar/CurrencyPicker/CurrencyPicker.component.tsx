@@ -29,7 +29,7 @@ export default class CurrencyPicker extends React.Component<{}, State> {
   static contextType = CurrencyContext;
   context!: React.ContextType<typeof CurrencyContext>;
 
-  handleCurrencySelection = (label: Currency ) => {
+  handleCurrencySelection = (label: Currency) => {
     this.context?.setCurrencyAsSelected(label);
     this.hideMenu();
   }
@@ -39,7 +39,7 @@ export default class CurrencyPicker extends React.Component<{}, State> {
       this.setState({
         isShown: true
       })
-    } 
+    }
   }
 
   hideMenu = () => {

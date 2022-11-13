@@ -7,7 +7,7 @@ export const DropdownContent = styled.div`
   background-color: #FFF;
   min-width: 120px;
   box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-  z-index: 1;
+  z-index: 5;
   left: -20px;
   margin-top: 20px;
   cursor: pointer;
@@ -31,5 +31,15 @@ export const Dropdown = styled.div`
   & > button {
     all: unset;
   }
+`
+
+// Overlay preventing from firing other events until menu is closed
+export const EventShield = styled.div`
+  position: fixed;
+  height: 100%;
+  width: 100%;
+  z-index: 4;
+  top: 0;
+  left: 0;
 `
 
