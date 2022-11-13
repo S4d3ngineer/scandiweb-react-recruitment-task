@@ -163,12 +163,20 @@ export default class CartOverlay extends React.Component<Props, State> {
 
   render() {
     const currencySymbol = this.context?.currency.symbol;
-    const price = this.props.cart.totalPrice;
-    const formattedPrice = price === 'error'? price : price.toFixed(2);
+    const { totalPrice, itemCount } = this.props.cart;
+    const formattedPrice = totalPrice === 'error' ? totalPrice : totalPrice.toFixed(2);
+
+    const counterIcon = itemCount ? 
+      (<S.CounterIcon>
+        {this.props.cart.itemCount}
+      </S.CounterIcon>) :
+      null;
+
     return (
       <S.Container>
         <button onClick={this.showMenu}>
           <S.CartIcon />
+          {counterIcon} 
         </button>
         {this.state.isShown &&
           <S.Overlay ref={this.wrapperRef}>

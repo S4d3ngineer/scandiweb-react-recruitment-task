@@ -48,7 +48,16 @@ class ProductListing extends React.Component<Props, State> {
 
   renderProductList = (): ReactElement => {
     const productListContent = this.state.productsData?.products.map(product => {
-      return <ProductCard id={product.id} img={product.gallery[0]} name={product.name} prices={product.prices} key={product.id} />
+      return (
+        <ProductCard
+          id={product.id}
+          img={product.gallery[0]}
+          name={product.name} 
+          prices={product.prices} 
+          inStock={product.inStock}
+          key={product.id} 
+        />
+      )
     })
     return (
       <React.Fragment>
@@ -65,10 +74,10 @@ class ProductListing extends React.Component<Props, State> {
     if (
       this.props.categories
       && !(this.props.categories.includes(this.props.params.category))
-      ) {
+    ) {
       console.log(this.props.params.category)
       console.log(this.props.categories)
-      return <NotFound /> 
+      return <NotFound />
     }
 
     if (!this.state.productsData) {

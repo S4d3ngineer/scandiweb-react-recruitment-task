@@ -10,6 +10,7 @@ interface Props {
   img: string;
   name: string;
   prices: Price[];
+  inStock: boolean;
 }
 
 export default class ProductCard extends React.Component<Props> {
@@ -19,14 +20,20 @@ export default class ProductCard extends React.Component<Props> {
   render() {
     const { symbol, amount } = getPrice(this.props.prices, this.context?.currency.label);
     const formattedAmount = amount?.toFixed(2)
+    const { id, img, name, inStock } = this.props;
+
     return (
       <S.Container>
-        <Link to={`/product/${this.props.id}`}>
-          <S.ProductPhoto src={this.props.img} alt="Product photo" />
-        </Link>
+        <S.PhotoContainer>
+          <Link to={`/product/${id}`}>
+            <S.ProductPhoto src={img} alt="Product photo" />
+            {!inStock && <S.Overlay>OUT OF STOCK</S.Overlay>}
+          </Link>
+        </S.PhotoContainer>
         <S.ProductInfo>
-          <S.ProductName><Link to={`/product/${this.props.id}`}>{this.props.name}</Link></S.ProductName>
+          <S.ProductName><Link to={`/product/${id}`}>{name}</Link></S.ProductName>
           <S.Price>{symbol}{formattedAmount}</S.Price>
+          {!inStock && <S.Overlay />}
         </S.ProductInfo>
       </S.Container>
     )

@@ -1,21 +1,12 @@
 import styled from "styled-components";
 import { ReactComponent as Cart } from 'assets/icons/Cart.svg';
 
-export const DimmedBackground = styled.div`
-  position: fixed;
-  height: 100%;
-  width: 100%;
-  background-color: rgba(0,0,0,0.5);
-  z-index: -1;
-  top: 0;
-  left: 0;
-`
-
 export const Container = styled.div`
   position: relative;
   display: inline-block;
   & > button {
     all: unset;
+    cursor: pointer;
   }
 `
 
@@ -23,6 +14,22 @@ export const CartIcon = styled(Cart)`
   &:hover * {
     fill: ${props => props.theme.colors.primary};
   }
+`
+
+export const CounterIcon = styled.div`
+  display: flex;
+  justify-content: center;
+  position: absolute;
+  z-index: 3;
+  top: -7px;
+  right: -6px;
+  width: 15px;
+  height: 15px;
+  color: white;
+  background-color: black;
+  font-size: 11px;
+  font-weight: 600;
+  border-radius: 50%;
 `
 
 export const Overlay = styled.div`
@@ -36,7 +43,6 @@ export const Overlay = styled.div`
   right: -20px;
   margin-top: 20px;
   padding: 32px 16px;
-  cursor: pointer;
   /* button { all: unset; } */
 `
 
