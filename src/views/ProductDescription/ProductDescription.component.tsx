@@ -8,7 +8,7 @@ import CurrencyContext from 'contexts/CurrencyContext';
 import { CartAction, UpdateCart } from 'utils/cart';
 import { getPrice } from 'utils/helpers';
 import NotFound from 'views/NotFound/NotFound.component';
-import { PrimaryButton } from 'components/Buttons/Buttons.styled';
+import { DisabledButton, PrimaryButton } from 'components/Buttons/Buttons.styled';
 
 interface Props extends WithParamsProps {
   updateCart: UpdateCart,
@@ -168,11 +168,11 @@ class ProductDescription extends React.Component<Props, State> {
     if (!this.state.productData) {
       return <NotFound />;
     }
-    const brand = this.state.productData?.brand;
-    const name = this.state.productData?.name;
-    const desc = this.state.productData?.description;
+    const { brand, name, description, inStock } = this.state.productData;
+
     const { symbol, amount } = getPrice(this.state.productData?.prices, this.context?.currency.label);
     const formattedAmount = amount?.toFixed(2);
+    
     return (
       <S.Container>
         <S.ImgContainer>
@@ -185,8 +185,12 @@ class ProductDescription extends React.Component<Props, State> {
           {this.renderAttributes()}
           <h6>PRICE: </h6>
           <S.Price>{symbol}{formattedAmount}</S.Price>
-          <PrimaryButton onClick={this.addToCartClick} $width={280} $fontSize={16}>ADD TO CART</PrimaryButton>
-          <S.Description dangerouslySetInnerHTML={{ __html: desc }} />
+          {
+            inStock ?
+            <PrimaryButton onClick={this.addToCartClick} $width={280} $fontSize={16}>ADD TO CART</PrimaryButton> :
+            <DisabledButton disabled $width={280} $fontSize={16}>OUT OF STOCK</DisabledButton> 
+            }
+          <S.Description dangerouslySetInnerHTML={{ __html: description }} />
         </S.Panel>
       </S.Container>
     )
