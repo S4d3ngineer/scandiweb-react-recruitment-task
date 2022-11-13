@@ -1,5 +1,5 @@
 import App from "App";
-import { Attribute, AttributeItem, ProductData } from "utils/product-data";
+import { Attribute, AttributeItem, ProductCardData } from "utils/product-data";
 
 /*
 ------This file containes type declarations, interfaces and cart logic related functions -------
@@ -18,7 +18,7 @@ export type CartItems = Record<CartItemId, CartItemData>;
 type CartItemId = string;
 
 /** ProductData with item's selected attributes  */
-export interface CartItemData extends ProductData {
+export interface CartItemData extends ProductCardData {
   selectedAttributes: Record<Attribute["id"], AttributeItem["value"]>;
   count: number;
 }

@@ -2,7 +2,7 @@ import React, { ReactElement } from 'react';
 import * as S from './ProductDescription.styled';
 import { productDataQuery } from './ProductDescription.queries';
 import { client } from 'index';
-import { ProductData, AttributeItem, Attribute } from 'utils/product-data';
+import { ProductDescriptionData, AttributeItem, Attribute } from 'utils/product-data';
 import { withParams, WithParamsProps } from 'utils/wrappers';
 import CurrencyContext from 'contexts/CurrencyContext';
 import { CartAction, UpdateCart } from 'utils/cart';
@@ -16,7 +16,7 @@ interface Props extends WithParamsProps {
 
 interface State {
   initialized: boolean;
-  productData: ProductData | null;
+  productData: ProductDescriptionData | null;
   selectedPhoto: string | undefined;
   selectedAttributes: Record<Attribute["id"], AttributeItem["value"]>
 }
@@ -51,7 +51,7 @@ class ProductDescription extends React.Component<Props, State> {
   /**
   * If all attributes are selected add the item to the cart
   */
-  addToCartClick = () => {
+  handleAddToCartClick = () => {
     if (Object.keys(this.state.selectedAttributes).length === this.state.productData?.attributes.length) {
       let itemId = this.state.productData.id;
       const attributesKeys = Object.values(this.state.selectedAttributes);
@@ -117,11 +117,17 @@ class ProductDescription extends React.Component<Props, State> {
     )
   }
 
-  renderAttributeItems = (attributeItems: AttributeItem[], attributeType: string, attributeId: string): ReactElement => {
+  renderAttributeItems = (
+    attributeItems: AttributeItem[],
+    attributeType: string,
+    attributeId: string
+  ): ReactElement => {
     // Function declaration for both attribute types
     let attributeElement: (attributeItem: AttributeItem) => ReactElement;
     // Check if attribute is selected and return 'selected' class string if it is
-    const isSelected = (attributeItem: AttributeItem) => this.state.selectedAttributes[attributeId] === attributeItem.value ? 'selected' : '';
+    const isSelected = (attributeItem: AttributeItem) => {
+      return this.state.selectedAttributes[attributeId] === attributeItem.value ? 'selected' : ''
+    };
 
     // Define type of attribute
     if (attributeType === 'swatch') {
@@ -172,7 +178,7 @@ class ProductDescription extends React.Component<Props, State> {
 
     const { symbol, amount } = getPrice(this.state.productData?.prices, this.context?.currency.label);
     const formattedAmount = amount?.toFixed(2);
-    
+
     return (
       <S.Container>
         <S.ImgContainer>
@@ -187,9 +193,9 @@ class ProductDescription extends React.Component<Props, State> {
           <S.Price>{symbol}{formattedAmount}</S.Price>
           {
             inStock ?
-            <PrimaryButton onClick={this.addToCartClick} $width={280} $fontSize={16}>ADD TO CART</PrimaryButton> :
-            <DisabledButton disabled $width={280} $fontSize={16}>OUT OF STOCK</DisabledButton> 
-            }
+              <PrimaryButton onClick={this.handleAddToCartClick} $width={280} $fontSize={16}>ADD TO CART</PrimaryButton> :
+              <DisabledButton disabled $width={280} $fontSize={16}>OUT OF STOCK</DisabledButton>
+          }
           <S.Description dangerouslySetInnerHTML={{ __html: description }} />
         </S.Panel>
       </S.Container>

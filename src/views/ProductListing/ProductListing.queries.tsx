@@ -6,8 +6,17 @@ export const categoryDataQuery = gql`
       products {
         id
         name
+        brand
         inStock
         gallery
+        attributes {
+          id
+          name
+          items {
+            id
+            value
+          }
+        }
         prices {
           currency {
             label

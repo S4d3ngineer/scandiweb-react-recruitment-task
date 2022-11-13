@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { ReactComponent as Cart } from 'assets/icons/Cart.svg';
 
 export const Container = styled.div`
   display: flex;
@@ -42,4 +43,28 @@ export const ProductName = styled.div`
 
 export const Price = styled.div`
   font-weight: 500;
+`
+
+export const AddToCart = styled.button`
+  position: absolute;
+  right: 10px;
+  bottom: -15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 52px;
+  height: 52px;
+  border-radius: 50%; 
+  border: none;
+  background-color: ${props => props.theme.colors.primary};
+  cursor: pointer;
+  &:hover {
+    transform: scale(0.98);
+  }
+`
+
+export const CartIcon = styled(Cart)`
+  * {
+    fill: white;
+  }
 `

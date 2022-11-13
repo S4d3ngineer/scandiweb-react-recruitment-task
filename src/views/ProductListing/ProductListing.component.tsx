@@ -2,18 +2,20 @@ import ProductCard from "components/ProductCard/ProductCard.component";
 import { client } from "index";
 import React, { ReactElement } from "react";
 import { Navigate } from "react-router-dom";
+import { UpdateCart } from "utils/cart";
+import { ProductCardData } from "utils/product-data";
 import { withParams, WithParamsProps } from "utils/wrappers";
 import NotFound from "views/NotFound/NotFound.component";
-import { CategoryData } from "./ProductListing.interfaces";
 import { categoryDataQuery } from "./ProductListing.queries";
 import * as S from "./ProductListing.styled";
 
 interface Props extends WithParamsProps {
   categories: string[] | null;
+  updateCart: UpdateCart;
 }
 
 interface State {
-  productsData: CategoryData | null
+  productsData: ProductCardData[] | null;
 }
 
 class ProductListing extends React.Component<Props, State> {
@@ -42,20 +44,17 @@ class ProductListing extends React.Component<Props, State> {
     });
     const data = response.data.category;
     this.setState({
-      productsData: data
+      productsData: data.products
     })
   }
 
   renderProductList = (): ReactElement => {
-    const productListContent = this.state.productsData?.products.map(product => {
+    const productListContent = this.state.productsData?.map(productData => {
       return (
         <ProductCard
-          id={product.id}
-          img={product.gallery[0]}
-          name={product.name} 
-          prices={product.prices} 
-          inStock={product.inStock}
-          key={product.id} 
+          key={productData.id}
+          productData={productData}
+          updateCart={this.props.updateCart} 
         />
       )
     })
@@ -75,8 +74,6 @@ class ProductListing extends React.Component<Props, State> {
       this.props.categories
       && !(this.props.categories.includes(this.props.params.category))
     ) {
-      console.log(this.props.params.category)
-      console.log(this.props.categories)
       return <NotFound />
     }
 

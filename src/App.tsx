@@ -106,14 +106,21 @@ export default class App extends React.Component<{}, State> {
     )
     const layout = <Layout navbar={navbar} />
 
+    const productListing = (
+        <ProductListing 
+          categories={this.state.categoryNames}
+          updateCart={this.updateCart}
+        />
+      )
+
     return (
       <div className="App">
         <header className="App-header"></header>
         {this.state.isDimmed && <DimmingOverlay />}
         <Routes>
           <Route path="/" element={layout} >
-            <Route index element={<ProductListing categories={this.state.categoryNames} />} />
-            <Route path=":category" element={<ProductListing categories={this.state.categoryNames} />} />
+            <Route index element={productListing} />
+            <Route path=":category" element={productListing} />
             <Route path="product/:id" element={<ProductDescription updateCart={this.updateCart} />} />
           </Route>
           <Route path="*" element={<NotFound />} />

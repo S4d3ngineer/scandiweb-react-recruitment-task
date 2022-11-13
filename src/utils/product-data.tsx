@@ -1,12 +1,15 @@
-export interface ProductData {
+export interface ProductCardData {
   id: string;
   name: string;
+  brand: string;
   inStock: boolean;
   gallery: string[];
-  description: string;
-  attributes: Attribute[];
   prices: Price[];
-  brand: string;
+  attributes: Attribute[];
+}
+
+export interface ProductDescriptionData extends ProductCardData {
+  description: string;
 }
 
 export interface Attribute {
@@ -17,9 +20,8 @@ export interface Attribute {
 }
 
 export interface AttributeItem {
-  displayValue: string;
-  value: string;
   id: string;
+  value: string;
 }
 
 export interface Price {

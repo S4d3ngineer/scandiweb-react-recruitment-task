@@ -13,9 +13,8 @@ export const productDataQuery = gql`
         name
         type
         items {
-          displayValue
-          value
           id
+          value
         }
       }
       prices {
