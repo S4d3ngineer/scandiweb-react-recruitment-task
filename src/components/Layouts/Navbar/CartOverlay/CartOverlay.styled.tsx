@@ -148,3 +148,12 @@ export const ButtonsContainer = styled.div`
   justify-content: space-between;
   margin-top: 34px;
 `
+
+export const EventShield = styled.div`
+  position: fixed;
+  height: 100%;
+  width: 100%;
+  z-index: 2;
+  top: 0;
+  left: 0;
+`

@@ -162,13 +162,14 @@ export default class CartOverlay extends React.Component<Props, State> {
   }
 
   render() {
+    const isShown = this.state.isShown;
     const currencySymbol = this.context?.currency.symbol;
     const { totalPrice, itemCount } = this.props.cart;
     const formattedPrice = totalPrice === 'error' ? totalPrice : totalPrice.toFixed(2);
 
     const counterIcon = itemCount ? 
       (<S.CounterIcon>
-        {this.props.cart.itemCount}
+        {itemCount}
       </S.CounterIcon>) :
       null;
 
@@ -178,18 +179,21 @@ export default class CartOverlay extends React.Component<Props, State> {
           <S.CartIcon />
           {counterIcon} 
         </button>
-        {this.state.isShown &&
-          <S.Overlay ref={this.wrapperRef}>
-            <span><b>My Bag, </b>{this.props.cart.itemCount} items</span>
-            <S.Items>
-              {this.renderCartItems()}
-            </S.Items>
-            <S.Summary><span>Total</span><span>{currencySymbol}{formattedPrice}</span></S.Summary>
-            <S.ButtonsContainer>
-              <OutlineButton $width={140} $height={40} $fontSize={14}>VIEW BAG</OutlineButton>
-              <PrimaryButton $width={140} $height={40} $fontSize={14}>CHECK OUT</PrimaryButton>
-            </S.ButtonsContainer>
-          </S.Overlay>
+        {isShown && 
+          <>
+            <S.Overlay ref={this.wrapperRef}>
+              <span><b>My Bag, </b>{itemCount} items</span>
+              <S.Items>
+                {this.renderCartItems()}
+              </S.Items>
+              <S.Summary><span>Total</span><span>{currencySymbol}{formattedPrice}</span></S.Summary>
+              <S.ButtonsContainer>
+                <OutlineButton $width={140} $height={40} $fontSize={14}>VIEW BAG</OutlineButton>
+                <PrimaryButton $width={140} $height={40} $fontSize={14}>CHECK OUT</PrimaryButton>
+              </S.ButtonsContainer>
+            </S.Overlay>
+            <S.EventShield />
+          </>
         }
       </S.Container>
     )
