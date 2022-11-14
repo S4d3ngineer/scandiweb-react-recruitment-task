@@ -97,8 +97,9 @@ export const AttributeBox = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  font-size: 16px;
   border: 1px solid #1D1F22;
-  width: 63px;
+  min-width: 63px;
   height: 45px;
   margin-top: 8px;
   cursor: pointer;
