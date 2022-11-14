@@ -1,4 +1,4 @@
-import ProductCard from "components/ProductCard/ProductCard.component";
+import ProductCard from "./ProductCard/ProductCard.component";
 import { client } from "index";
 import React, { ReactElement } from "react";
 import { Navigate } from "react-router-dom";
