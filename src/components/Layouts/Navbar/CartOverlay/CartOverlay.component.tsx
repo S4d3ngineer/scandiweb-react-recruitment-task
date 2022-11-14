@@ -78,7 +78,7 @@ export default class CartOverlay extends React.Component<Props, State> {
               <div>{product.brand}</div>
               <div>{product.name}</div>
             </S.NameContainer>
-            <S.Price>{symbol}{amount}</S.Price>
+            <S.Price>{symbol}{amount?.toFixed(2)}</S.Price>
             {this.renderAttributes(product)}
           </S.ItemInfo>
           <S.CountManipulator>

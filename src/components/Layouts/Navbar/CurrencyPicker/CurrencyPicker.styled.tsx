@@ -8,7 +8,7 @@ export const IconContainer = styled.div`
   &:hover {
     cursor: pointer;
     color: ${props => props.theme.colors.primary};
-    * {
+    path {
       stroke: ${props => props.theme.colors.primary};
     }
   }

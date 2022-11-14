@@ -127,7 +127,6 @@ export const CountManipulator = styled.div`
     margin: 0 auto;
   }
 `
-
 export const SummaryTable = styled.table`
   margin-right: auto;
   text-align: left;

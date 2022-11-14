@@ -45,7 +45,7 @@ export const Price = styled.div`
   font-weight: 500;
 `
 
-export const AddToCart = styled.button`
+export const AddToCartButton = styled.button`
   position: absolute;
   right: 10px;
   bottom: -15px;

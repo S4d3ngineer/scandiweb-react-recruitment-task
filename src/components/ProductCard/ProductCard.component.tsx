@@ -50,9 +50,9 @@ export default class ProductCard extends React.Component<Props> {
             {!inStock && <S.Overlay>OUT OF STOCK</S.Overlay>}
             {
               inStock &&
-              <S.AddToCart onClick={this.handleAddToCart}>
+              <S.AddToCartButton onClick={this.handleAddToCart}>
                 <S.CartIcon width='52' height='52' viewBox='-12 -14 46 46' />
-              </S.AddToCart>
+              </S.AddToCartButton>
             }
           </Link>
         </S.PhotoContainer>
