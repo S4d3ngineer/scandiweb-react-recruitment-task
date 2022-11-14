@@ -38,4 +38,5 @@ export const DisabledButton = styled(Button)`
   background-color: #EEE;
   border: none;
   outline: none;
+  cursor: default;
 `
