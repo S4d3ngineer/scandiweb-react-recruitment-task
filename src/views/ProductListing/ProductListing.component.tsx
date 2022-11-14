@@ -8,6 +8,7 @@ import { withParams, WithParamsProps } from "utils/wrappers";
 import NotFound from "views/NotFound/NotFound.component";
 import { categoryDataQuery } from "./ProductListing.queries";
 import * as S from "./ProductListing.styled";
+import { defaultCategory } from "utils/constants";
 
 interface Props extends WithParamsProps {
   categories: string[] | null;
@@ -38,7 +39,7 @@ class ProductListing extends React.Component<Props, State> {
       query: categoryDataQuery,
       variables: {
         input: {
-          title: this.props.params.category || 'all'
+          title: this.props.params.category || defaultCategory
         }
       }
     });
@@ -54,7 +55,7 @@ class ProductListing extends React.Component<Props, State> {
         <ProductCard
           key={productData.id}
           productData={productData}
-          updateCart={this.props.updateCart} 
+          updateCart={this.props.updateCart}
         />
       )
     })
@@ -67,7 +68,7 @@ class ProductListing extends React.Component<Props, State> {
 
   render() {
     if (!this.props.params.category) {
-      return <Navigate to="/all" replace />
+      return <Navigate to={'/' + defaultCategory} replace />
     }
 
     if (

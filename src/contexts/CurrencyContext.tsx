@@ -4,6 +4,7 @@
 
 
 import React from "react";
+import { defaultCurrency } from "utils/constants";
 import { Currency } from "utils/product-data";
 
 interface ContextInterface {
@@ -38,11 +39,7 @@ export class CurrencyProvider extends React.Component<Props, State> {
 
   getSavedCurrency = () => {
     const currency = localStorage.getItem('currency');
-    const fallbackCurrency = {
-      label: 'USD',
-      symbol: '$'
-    }
-    return currency ? JSON.parse(currency) : fallbackCurrency;
+    return currency ? JSON.parse(currency) : defaultCurrency;
   }
   
   setCurrencyAsSelected = (currency: Currency) => {

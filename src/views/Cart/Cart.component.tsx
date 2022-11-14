@@ -8,6 +8,7 @@ import { ReactComponent as MinusSquare } from "assets/icons/MinusSquare.svg";
 import { Attribute, AttributeItem } from "utils/product-data";
 import { PrimaryButton } from "components/Buttons/Buttons.styled";
 import SlideShow from "./Slideshow/SlideShow.component";
+import { taxPercent } from "utils/constants";
 
 interface Props {
   cart: CartData;
@@ -130,7 +131,7 @@ export default class Cart extends React.Component<Props, {}> {
     const currencySymbol = this.context?.currency.symbol;
     const { totalPrice, itemCount } = this.props.cart;
     const formattedPrice = totalPrice === 'error' ? totalPrice : totalPrice.toFixed(2);
-    const formattedTax = totalPrice === 'error' ? totalPrice : (totalPrice * 0.21).toFixed(2);
+    const formattedTax = totalPrice === 'error' ? totalPrice : (totalPrice * taxPercent / 100).toFixed(2);
 
     return (
       <S.Container>
@@ -141,7 +142,7 @@ export default class Cart extends React.Component<Props, {}> {
         <S.SummaryTable>
           <tbody>
             <tr>
-              <th>Tax 21%:</th>
+              <th>Tax {taxPercent}%:</th>
               <td>{currencySymbol}{formattedTax}</td>
             </tr>
             <tr>
