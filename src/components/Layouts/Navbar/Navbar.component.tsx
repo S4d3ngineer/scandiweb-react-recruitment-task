@@ -33,7 +33,7 @@ class Navbar extends React.Component<Props, {}> {
         <S.GridBox>
           <S.CategoryFilters>{this.renderCategoryFilters()}</S.CategoryFilters>
           <S.LogoContainer>
-            <Link to="/">
+            <Link to="/" aria-label="Go to home page">
               <S.LogoIcon />
             </Link>
           </S.LogoContainer>

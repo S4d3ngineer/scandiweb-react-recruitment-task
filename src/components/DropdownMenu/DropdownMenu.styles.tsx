@@ -11,7 +11,6 @@ export const DropdownContent = styled.div`
   left: -20px;
   margin-top: 20px;
   cursor: pointer;
-  /* button { all: unset; } */
   span {
     color: black;
     font-size: 18px;
