@@ -90,7 +90,7 @@ export default class CartOverlay extends React.Component<Props, State> {
               <MinusSquare />
             </button>
           </S.CountManipulator>
-          <img alt={product.name + ' photo'} src={product.gallery[0]} />
+          <img alt={product.name} src={product.gallery[0]} />
         </S.Item>
       )
     })

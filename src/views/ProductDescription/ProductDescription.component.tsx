@@ -183,7 +183,7 @@ class ProductDescription extends React.Component<Props, State> {
       <S.Container>
         <S.ImgContainer>
           <S.ImgGallery>{this.renderGalleryElements()}</S.ImgGallery>
-          <S.SelectedImg src={this.state.selectedPhoto} draggable='false' alt='Selected product photo' />
+          <S.SelectedImg src={this.state.selectedPhoto} draggable='false' alt='Selected product' />
         </S.ImgContainer>
         <S.Panel>
           <S.Brand>{brand}</S.Brand>

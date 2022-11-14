@@ -46,7 +46,7 @@ export default class ProductCard extends React.Component<Props> {
       <S.Container>
         <S.PhotoContainer>
           <Link to={`/product/${id}`}>
-            <S.ProductPhoto src={img} alt="Product photo" />
+            <S.ProductPhoto src={img} alt={name} />
             {!inStock && <S.Overlay>OUT OF STOCK</S.Overlay>}
             {
               inStock &&
