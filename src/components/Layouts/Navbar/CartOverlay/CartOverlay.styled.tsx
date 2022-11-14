@@ -140,7 +140,6 @@ export const Summary = styled.div`
   padding-top: 32px;
 `
 
-// TODO maybe it is not needed?
 export const ButtonsContainer = styled.div`
   display: flex;
   flex-direction: row;

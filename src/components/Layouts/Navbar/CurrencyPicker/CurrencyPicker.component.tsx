@@ -56,11 +56,9 @@ export default class CurrencyPicker extends React.Component<{}, State> {
     this.setState({ currencies: currencies });
   }
 
-  // TODO should I leave the button
-  // declare in interface type of elements reveiced as children inside DropdownMenu
   renderCurrencies = (): ReactElement => {
     const currencyOptions = this.state.currencies?.map((currency: Currency) => (
-      <span key={currency.label} onClick={() => this.handleCurrencySelection(currency)}>
+      <span role="button" key={currency.label} onClick={() => this.handleCurrencySelection(currency)}>
         {currency.symbol + ' ' + currency.label}
       </span>
     ))
