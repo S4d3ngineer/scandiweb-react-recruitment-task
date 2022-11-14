@@ -139,18 +139,20 @@ export default class Cart extends React.Component<Props, {}> {
           {this.renderCartItems()}
         </S.Items>
         <S.SummaryTable>
-          <tr>
-            <th>Tax 21%:</th>
-            <td>{currencySymbol}{formattedTax}</td>
-          </tr>
-          <tr>
-            <th>Quantity:</th>
-            <td>{itemCount}</td>
-          </tr>
-          <tr>
-            <th>Total:</th>
-            <td>{currencySymbol}{formattedPrice}</td>
-          </tr>
+          <tbody>
+            <tr>
+              <th>Tax 21%:</th>
+              <td>{currencySymbol}{formattedTax}</td>
+            </tr>
+            <tr>
+              <th>Quantity:</th>
+              <td>{itemCount}</td>
+            </tr>
+            <tr>
+              <th>Total:</th>
+              <td>{currencySymbol}{formattedPrice}</td>
+            </tr>
+          </tbody>
         </S.SummaryTable>
         <S.ButtonContainer>
           <PrimaryButton $width={280} $fontSize={16}>ORDER</PrimaryButton>
