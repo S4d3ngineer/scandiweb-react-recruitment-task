@@ -70,6 +70,14 @@ export default class App extends React.Component<Props, State> {
   updateCart = updateCart; // declared inside class to be binded in constructor
 
   /**
+   * Sets stated of overlay which dimms everything other than
+   * navbar and it children
+   */
+  setDimmedOverlay = (isDimmed: boolean) => {
+    this.setState({ isDimmed: isDimmed })
+  }
+
+  /**
    * Get category names and sets it in App component state 
    */
   getCategoryNames = async () => {
@@ -91,14 +99,6 @@ export default class App extends React.Component<Props, State> {
         totalPrice: getTotalPrice(cartItems, this.context?.currency.label)
       }
     })
-  }
-
-  /**
-   * Sets stated of overlay which dimms everything other than
-   * navbar and it children
-   */
-  setDimmedOverlay = (isDimmed: boolean) => {
-    this.setState({ isDimmed: isDimmed })
   }
 
   render() {
