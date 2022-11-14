@@ -128,6 +128,11 @@ export const Price = styled.div`
   padding-top: 10px;
 `
 
+export const WarningMessage = styled.span`
+  padding-top: 10px;
+  color: red;
+`
+
 export const Description = styled.div`
   font-family: Roboto;
   font-size: 16px;

@@ -19,6 +19,8 @@ interface State {
   productData: ProductDescriptionData | null;
   selectedPhoto: string | undefined;
   selectedAttributes: Record<Attribute["id"], AttributeItem["value"]>
+  areAttributesSelected: boolean;
+  isAttributeWarning: boolean;
 }
 
 class ProductDescription extends React.Component<Props, State> {
@@ -26,7 +28,9 @@ class ProductDescription extends React.Component<Props, State> {
     initialized: false,
     productData: null,
     selectedPhoto: undefined,
-    selectedAttributes: {}
+    selectedAttributes: {},
+    areAttributesSelected: false,
+    isAttributeWarning: false
   }
 
   componentDidMount(): void {
@@ -34,6 +38,14 @@ class ProductDescription extends React.Component<Props, State> {
     this.setState({
       initialized: true
     })
+  }
+
+  componentDidUpdate(_: Props, prevState: State): void {
+    if (this.state.areAttributesSelected !== prevState.areAttributesSelected) {
+      if (Object.keys(this.state.selectedAttributes).length === this.state.productData?.attributes.length) {
+        this.setState({areAttributesSelected: true})
+      }
+    } 
   }
 
   static contextType = CurrencyContext;
@@ -62,6 +74,9 @@ class ProductDescription extends React.Component<Props, State> {
         count: 1
       }
       this.props.updateCart(CartAction.Add, itemId, itemToAdd);
+      this.setState({isAttributeWarning: false})
+    } else {
+      this.setState({isAttributeWarning: true});
     }
   }
 
@@ -92,7 +107,13 @@ class ProductDescription extends React.Component<Props, State> {
 
   renderGalleryElements = (): ReactElement => {
     const galleryElements = this.state.productData?.gallery.map((imgSource: string, index: number) =>
-      <img src={imgSource} draggable='false' alt={'Product photo ' + index} key={index} onClick={() => this.handleGalleryPhotoClick(imgSource)} />
+      <img
+        src={imgSource}
+        draggable='false'
+        alt={'Product photo ' + index}
+        key={index}
+        onClick={() => this.handleGalleryPhotoClick(imgSource)}
+      />
     )
     return (
       <React.Fragment>
@@ -175,9 +196,30 @@ class ProductDescription extends React.Component<Props, State> {
       return <NotFound />;
     }
     const { brand, name, description, inStock } = this.state.productData;
+    const isAttributeWarning = this.state.isAttributeWarning;
 
     const { symbol, amount } = getPrice(this.state.productData?.prices, this.context?.currency.label);
     const formattedAmount = amount?.toFixed(2);
+
+    const addToCartButton = (
+      <PrimaryButton
+        onClick={this.handleAddToCartClick}
+        $width={280}
+        $fontSize={16}
+      >
+        ADD TO CART
+      </PrimaryButton>
+    )
+
+    const disabledButton = (
+      <DisabledButton
+        disabled
+        $width={280}
+        $fontSize={16}
+      >
+        OUT OF STOCK
+      </DisabledButton>
+    )
 
     return (
       <S.Container>
@@ -192,9 +234,13 @@ class ProductDescription extends React.Component<Props, State> {
           <h6>PRICE: </h6>
           <S.Price>{symbol}{formattedAmount}</S.Price>
           {
+            isAttributeWarning &&
+            <S.WarningMessage>Attributes are not selected!</S.WarningMessage>
+          }
+          {
             inStock ?
-              <PrimaryButton onClick={this.handleAddToCartClick} $width={280} $fontSize={16}>ADD TO CART</PrimaryButton> :
-              <DisabledButton disabled $width={280} $fontSize={16}>OUT OF STOCK</DisabledButton>
+              addToCartButton :
+              disabledButton
           }
           <S.Description dangerouslySetInnerHTML={{ __html: description }} />
         </S.Panel>
