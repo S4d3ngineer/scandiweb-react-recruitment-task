@@ -12,6 +12,7 @@ export const categoryDataQuery = gql`
         attributes {
           id
           name
+          type
           items {
             id
             value
