@@ -1,16 +1,26 @@
 import styled from "styled-components";
 
+const mediaWidthFirst = '1150px';
+const mediaWidthSecond = '800px';
+
 export const Container = styled.div`
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: row;
   max-width: 1440px; 
   justify-content: center;
   margin: 50px auto;
+  @media (max-width: ${mediaWidthFirst}) {
+    flex-direction: column;
+    align-items: center;
+  }
 `
 
 export const ImgContainer = styled.div`
   display: flex;
   flex-direction: row;
+  @media (max-width: ${mediaWidthSecond}){
+    flex-direction: column;
+  }
 `
 
 const scrollbarThumbColor = "#444"; 
@@ -19,9 +29,9 @@ const scrollbarTrackColor = "#777";
 export const ImgGallery = styled.div`
   display: flex;
   flex-direction: column;
-  row-gap: 30px;
+  gap: 30px;
   width: 150px;
-  max-height: 511px;
+  height: 511px;
   padding-right: 10px;
   overflow-x: hidden;
   overflow-y: auto;
@@ -44,6 +54,16 @@ export const ImgGallery = styled.div`
     object-fit: contain;
     cursor: pointer;
   }
+  @media (max-width: ${mediaWidthSecond}) {
+    flex-direction: row;
+    overflow-x: auto;
+    overflow-y: hidden;
+    width: 80vw;
+    height: 130px;
+    order: 2;
+    margin: 0 auto;
+    padding: 0;
+  }
 `
 
 export const SelectedImg = styled.img`
@@ -53,6 +73,10 @@ export const SelectedImg = styled.img`
   object-fit: contain;
   padding-left: 20px;
   padding-right: 80px;
+  @media (max-width: ${mediaWidthSecond}) {
+    padding: 0 0 40px 0;
+    width: 80vw;
+  }
 `
 
 // TODO maybe declare p in global styles
@@ -78,6 +102,9 @@ export const Panel = styled.div`
   }
   button {
     margin-top: 20px;
+  }
+  @media (max-width: ${mediaWidthFirst}) {
+    padding-top: 40px;
   }
 `
 

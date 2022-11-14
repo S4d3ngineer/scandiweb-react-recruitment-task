@@ -4,7 +4,7 @@ import { ReactComponent as Logo } from 'assets/icons/Logo.svg';
 export const Wrapper = styled.div`
   position: relative;
   z-index: 2;
-  padding: 0 auto;
+  margin: 0 auto;
   background-color: white;
 `
 

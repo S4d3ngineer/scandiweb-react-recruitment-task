@@ -27,6 +27,7 @@ export const ProductList = styled.div`
   justify-content: center;
   max-width: 1440px;
   margin: 0 auto;
+  padding: 0 30px;
   row-gap: calc(0.15 * 1440px);
   column-gap: calc(0.05 * 1440px);
   @media (max-width: 1440px) {
