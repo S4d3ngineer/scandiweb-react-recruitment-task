@@ -1,3 +1,8 @@
+/*
+------ This context is meant to wrapp App component and shoudldn't be reused -------
+*/
+
+
 import React from "react";
 import { Currency } from "utils/product-data";
 
@@ -49,13 +54,17 @@ export class CurrencyProvider extends React.Component<Props, State> {
   render() {
     const { currency } = this.state;
     const setCurrencyAsSelected = this.setCurrencyAsSelected;
+
+    // Pass currency as props so root element can recalculate total cart's price on currency change
+    const childWithProp = React.cloneElement(this.props.children as React.ReactElement<any>, {currency: currency})
+
     return(
       <CurrencyContext.Provider value={{
           currency,
           setCurrencyAsSelected
         }}
       >
-        {this.props.children}
+        {childWithProp}
       </CurrencyContext.Provider>
     )
   }

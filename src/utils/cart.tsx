@@ -2,10 +2,10 @@ import App from "App";
 import { Attribute, AttributeItem, ProductCardData } from "utils/product-data";
 
 /*
-------This file containes type declarations, interfaces and cart logic related functions -------
+------ This file containes type declarations, interfaces and cart logic related functions -------
 */
 
-export interface Cart {
+export interface CartData {
   items: CartItems;
   itemCount: number;
   /** It's number when successfuly calculated and 'error' otherwise */
@@ -113,15 +113,15 @@ export const getItemsCount = ((items: CartItems) => {
 })
 
 export const getTotalPrice = ((items: CartItems, currency: string | undefined) => {
-  let arrOfSmth: number[] | string = [];
+  let itemsPrices: number[] | string = [];
   for (const item of Object.values(items)) {
     const itemPrice = item.prices.find((price) => price.currency.label === currency)?.amount;
     if (!itemPrice) {
-      arrOfSmth = 'error';
+      itemsPrices = 'error';
       break;
     }
-    arrOfSmth.push((itemPrice * item.count));
+    itemsPrices.push((itemPrice * item.count));
   }
-  return typeof(arrOfSmth) === 'string' ? 'error' : arrOfSmth.reduce((prev, curr) => prev + curr, 0);
+  return typeof(itemsPrices) === 'string' ? 'error' : itemsPrices.reduce((prev, curr) => prev + curr, 0);
 })
 

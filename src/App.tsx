@@ -5,22 +5,29 @@ import { Route, Routes } from 'react-router-dom';
 import ProductDescription from 'views/ProductDescription/ProductDescription.component';
 import { categoryNamesQuery } from './App.queries';
 import CurrencyContext from 'contexts/CurrencyContext';
-import { Cart, getItemsCount, getTotalPrice, updateCart } from 'utils/cart';
+import { CartData, getItemsCount, getTotalPrice, updateCart } from 'utils/cart';
 import NotFound from 'views/NotFound/NotFound.component';
 import Layout from 'components/Layouts/Layout';
 import Navbar from 'components/Layouts/Navbar/Navbar.component';
 import { DimmingOverlay } from 'components/DimmingOverlay/DimmingOverlay';
 import CartOverlay from 'components/Layouts/Navbar/CartOverlay/CartOverlay.component';
+import Cart from 'views/Cart/Cart.component';
+import { Currency } from 'utils/product-data';
+
+interface Props {
+  /** Allows to update cart's total price on currency change */
+  currency?: Currency;
+}
 
 interface State {
   initialized: boolean;
   categoryNames: null | string[];
-  cart: Cart;
+  cart: CartData;
   isDimmed: boolean;
 }
 
-export default class App extends React.Component<{}, State> {
-  constructor(props: {}) {
+export default class App extends React.Component<Props, State> {
+  constructor(props: Props) {
     super(props);
 
     this.state = {
@@ -43,10 +50,18 @@ export default class App extends React.Component<{}, State> {
     this.setState({initialized: true});
   }
 
-  componentDidUpdate(_: {}, prevState: State): void {
+  componentDidUpdate(prevProps: Props, prevState: State): void {
     if (this.state.cart.items !== prevState.cart?.items) {
       localStorage.setItem('cart', JSON.stringify(this.state.cart?.items));
     } 
+    if (this.props.currency !== prevProps.currency) {
+      this.setState({
+        cart: {
+          ...this.state.cart,
+          totalPrice: getTotalPrice(this.state.cart.items, this.context?.currency.label)
+        }
+      })
+    }
   }
 
   static contextType = CurrencyContext;
@@ -113,6 +128,13 @@ export default class App extends React.Component<{}, State> {
         />
       )
 
+    const cart = (
+      <Cart
+        cart={this.state.cart}
+        updateCart={this.updateCart}
+      />
+    )
+
     return (
       <div className="App">
         <header className="App-header"></header>
@@ -122,6 +144,7 @@ export default class App extends React.Component<{}, State> {
             <Route index element={productListing} />
             <Route path=":category" element={productListing} />
             <Route path="product/:id" element={<ProductDescription updateCart={this.updateCart} />} />
+            <Route path="cart" element={cart} />
           </Route>
           <Route path="*" element={<NotFound />} />
         </Routes>

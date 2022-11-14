@@ -31,9 +31,9 @@ root.render(
   <React.StrictMode>
     <BrowserRouter>
       <ApolloProvider client={client}>
+        <GlobalStyles />
         <ThemeProvider theme={theme}>
           <CurrencyProvider>
-            <GlobalStyles />
             <App />
           </CurrencyProvider>
         </ThemeProvider>

@@ -6,10 +6,11 @@ import * as S from './CartOverlay.styled';
 import { ReactComponent as PlusSquare } from "assets/icons/PlusSquare.svg";
 import { ReactComponent as MinusSquare } from "assets/icons/MinusSquare.svg";
 import { getPrice } from "utils/helpers";
-import { Cart, CartAction, CartItemData, UpdateCart } from "utils/cart";
+import { CartData, CartAction, CartItemData, UpdateCart } from "utils/cart";
+import { Link } from "react-router-dom";
 
 interface Props {
-  cart: Cart;
+  cart: CartData;
   dimmSetter: (isDimmed: boolean) => void;
   updateCart: UpdateCart;
 }
@@ -66,7 +67,7 @@ export default class CartOverlay extends React.Component<Props, State> {
     }
   }
 
-  renderCartItems = () => {
+  renderCartItems = (): ReactElement => {
     const cartItemsEntries = Object.entries(this.props.cart.items);
     const cartItems = cartItemsEntries.map(([id, product]) => {
       const { symbol, amount } = getPrice(product.prices, this.context?.currency.label);
@@ -121,7 +122,12 @@ export default class CartOverlay extends React.Component<Props, State> {
     )
   }
 
-  renderAttributeItems = (attributeItems: AttributeItem[], attributeType: string, attributeId: string, selectedAttributes: CartItemData['selectedAttributes']): ReactElement => {
+  renderAttributeItems = (
+    attributeItems: AttributeItem[],
+    attributeType: string,
+    attributeId: string,
+    selectedAttributes: CartItemData['selectedAttributes']
+  ): ReactElement => {
 
     let attributeElement: (attributeItem: AttributeItem) => ReactElement;
 
@@ -167,7 +173,7 @@ export default class CartOverlay extends React.Component<Props, State> {
     const { totalPrice, itemCount } = this.props.cart;
     const formattedPrice = totalPrice === 'error' ? totalPrice : totalPrice.toFixed(2);
 
-    const counterIcon = itemCount ? 
+    const counterIcon = itemCount ?
       (<S.CounterIcon>
         {itemCount}
       </S.CounterIcon>) :
@@ -177,9 +183,9 @@ export default class CartOverlay extends React.Component<Props, State> {
       <S.Container>
         <button onClick={this.showMenu}>
           <S.CartIcon />
-          {counterIcon} 
+          {counterIcon}
         </button>
-        {isShown && 
+        {isShown &&
           <>
             <S.Overlay ref={this.wrapperRef}>
               <span><b>My Bag, </b>{itemCount} items</span>
@@ -188,7 +194,9 @@ export default class CartOverlay extends React.Component<Props, State> {
               </S.Items>
               <S.Summary><span>Total</span><span>{currencySymbol}{formattedPrice}</span></S.Summary>
               <S.ButtonsContainer>
-                <OutlineButton $width={140} $height={40} $fontSize={14}>VIEW BAG</OutlineButton>
+                <Link to='/cart' onClick={this.hideMenu} >
+                  <OutlineButton $width={140} $height={40} $fontSize={14}>VIEW BAG</OutlineButton>
+                </Link>
                 <PrimaryButton $width={140} $height={40} $fontSize={14}>CHECK OUT</PrimaryButton>
               </S.ButtonsContainer>
             </S.Overlay>
