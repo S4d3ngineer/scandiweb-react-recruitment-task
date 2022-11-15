@@ -37,7 +37,7 @@ export default class ProductCard extends React.Component<Props> {
   }
 
   render() {
-    const { id, name, inStock, gallery, prices } = this.props.productData;
+    const { id, brand, name, inStock, gallery, prices } = this.props.productData;
     const img = gallery[0];
     const { symbol, amount } = getPrice(prices, this.context?.currency.label);
     const formattedAmount = amount?.toFixed(2)
@@ -57,7 +57,11 @@ export default class ProductCard extends React.Component<Props> {
           </Link>
         </S.PhotoContainer>
         <S.ProductInfo>
-          <S.ProductName><Link to={`/product/${id}`}>{name}</Link></S.ProductName>
+          <S.ProductName>
+            <Link to={`/product/${id}`}>
+              {brand} {name}
+            </Link>
+            </S.ProductName>
           <S.Price>{symbol}{formattedAmount}</S.Price>
           {!inStock && <S.Overlay />}
         </S.ProductInfo>
