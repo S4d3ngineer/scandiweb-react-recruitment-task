@@ -26,8 +26,8 @@ export default class Cart extends React.Component<Props, {}> {
       const { symbol, amount } = getPrice(product.prices, this.context?.currency.label);
 
       return (
-        <>
-          <S.Item key={id}>
+        <React.Fragment key ={id}>
+          <S.Item>
             <S.ItemInfo>
               <S.NameContainer>
                 <div>{product.brand}</div>
@@ -48,7 +48,7 @@ export default class Cart extends React.Component<Props, {}> {
             <SlideShow gallery={product.gallery} productName={product.name} />
           </S.Item>
           <hr />
-        </>
+        </React.Fragment>
       )
     })
     return (
