@@ -35,12 +35,16 @@ class ProductDescription extends React.Component<Props, State> {
 
   componentDidMount(): void {
     this.getProductData();
-    this.setState({
-      initialized: true
-    })
   }
 
   componentDidUpdate(_: Props, prevState: State): void {
+    if (!this.state.initialized &&
+      this.state.productData !== prevState.productData) {
+      this.setState({
+        initialized: true
+      })  
+    }
+
     if (this.state.areAttributesSelected !== prevState.areAttributesSelected) {
       if (Object.keys(this.state.selectedAttributes).length === this.state.productData?.attributes.length) {
         this.setState({areAttributesSelected: true})
