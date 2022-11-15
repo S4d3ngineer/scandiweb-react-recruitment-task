@@ -30,11 +30,12 @@ export const ImgGallery = styled.div`
   display: flex;
   flex-direction: column;
   gap: 30px;
+  flex-grow: 0;
+  flex-shrink: 0;
   overflow-x: hidden;
   overflow-y: auto;
-  width: 150px;
-  height: 511px;
-  padding-right: 10px;
+  margin-right: 30px;
+  max-height: 511px;
   /* Standardized scrollbar properties for Firefox support */
   scrollbar-width: 8px;
   scrollbar-color: ${scrollbarTrackColor} ${scrollbarThumbColor};
@@ -49,6 +50,7 @@ export const ImgGallery = styled.div`
     background-color: ${scrollbarTrackColor};
   }
   img {
+    margin-right: 20px;
     width: 85px;
     height: 85px;
     object-fit: contain;
@@ -59,23 +61,31 @@ export const ImgGallery = styled.div`
     order: 2;
     overflow-x: auto;
     overflow-y: hidden;
-    margin: 0 auto;
-    width: 80vw;
-    height: 130px;
-    padding: 0;
+    margin: 40px auto 0 auto;
+    max-width: 80vw;
+    scrollbar-height: 8px;
+    &::-webkit-scrollbar {
+      height: 8px;
+    }
+    img {
+      margin-right: 0;
+      margin-bottom: 10px;
+    }
   }
 `
 
 export const SelectedImg = styled.img`
+  margin-right: 80px;
   max-width: 610px;
   width: 100%;
   max-height: 511px;
   object-fit: contain;
-  padding-left: 20px;
-  padding-right: 80px;
+  @media (max-width: ${firstBreakpoint}) {
+    margin-right: 0;
+    width: 400px;
+  }
   @media (max-width: ${secondBreakpoint}) {
     width: 80vw;
-    padding: 0 0 40px 0;
   }
 `
 
