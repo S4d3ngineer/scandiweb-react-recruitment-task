@@ -23,9 +23,6 @@ export const ImgContainer = styled.div`
   }
 `
 
-const scrollbarThumbColor = "#444"; 
-const scrollbarTrackColor = "#777";
-
 export const ImgGallery = styled.div`
   display: flex;
   flex-direction: column;
@@ -38,16 +35,16 @@ export const ImgGallery = styled.div`
   max-height: 511px;
   /* Standardized scrollbar properties for Firefox support */
   scrollbar-width: 8px;
-  scrollbar-color: ${scrollbarTrackColor} ${scrollbarThumbColor};
+  scrollbar-color: ${props => props.theme.colors.scrollbar.track} ${props => props.theme.colors.scrollbar.thumb};
   /* Webkit prefixed scrollbar properties to cover most of remaining cases */
   &::-webkit-scrollbar {
     width: 8px;
   }
   &::-webkit-scrollbar-thumb {
-    background-color: ${scrollbarThumbColor};
+    background-color: ${props => props.theme.colors.scrollbar.thumb};
   }
   &::-webkit-scrollbar-track {
-    background-color: ${scrollbarTrackColor};
+    background-color: ${props => props.theme.colors.scrollbar.track};
   }
   img {
     margin-right: 20px;

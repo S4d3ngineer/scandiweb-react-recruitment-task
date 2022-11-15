@@ -38,10 +38,24 @@ export const Overlay = styled.div`
   right: -20px;
   display: flex;
   flex-direction: column;
+  overflow-y: auto;
   margin-top: 29px;
   width: 325px;
+  max-height: 600px;
   padding: 32px 16px;
   background-color: white;
+  scrollbar-width: 8px;
+  scrollbar-color: ${props => props.theme.colors.scrollbar.track} ${props => props.theme.colors.scrollbar.thumb};
+  /* Webkit prefixed scrollbar properties to cover most of remaining cases */
+  &::-webkit-scrollbar {
+    width: 8px;
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: ${props => props.theme.colors.scrollbar.thumb};
+  }
+  &::-webkit-scrollbar-track {
+    background-color: ${props => props.theme.colors.scrollbar.track};
+  }
 `
 
 export const Items = styled.div`
