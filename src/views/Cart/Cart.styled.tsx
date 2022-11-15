@@ -1,5 +1,7 @@
 import styled from "styled-components";
 
+const breakpoint = '500px';
+
 export const Container = styled.div`
   display: flex;
   flex-direction: column;
@@ -18,7 +20,7 @@ export const Container = styled.div`
   svg {
     cursor: pointer;
   }
-  @media (max-width: 500px) {
+  @media (max-width: ${breakpoint}) {
     padding: 25px 40px;
   }
 `
@@ -36,11 +38,13 @@ export const Item = styled.div`
     max-width: 200px;
     object-fit: contain;
   }
-  @media (max-width: 500px) {
+  @media (max-width: ${breakpoint}) {
     flex-direction: column;
+    flex-grow: 0;
+    flex-shrink: 0;
     gap: 25px;
     img {
-      margin: 0 auto;
+      max-width: 100%;
     }
   }
 `
@@ -53,7 +57,7 @@ export const ItemInfo = styled.div`
   h5 {
     padding-top: 8px;
   }
-  @media (max-width: 500px) {
+  @media (max-width: ${breakpoint}) {
     order: 3;
     padding: 0;
   }
@@ -116,11 +120,13 @@ export const CountManipulator = styled.div`
   margin-right: 24px;
   button {
     all: unset;
+    width: 24px;
+    height: 24px;
   }
   button:hover {
     transform: scale(0.98);
   }
-  @media (max-width: 500px) {
+  @media (max-width: ${breakpoint}) {
     flex-direction: row;
     gap: 25px;
     order: 2;
