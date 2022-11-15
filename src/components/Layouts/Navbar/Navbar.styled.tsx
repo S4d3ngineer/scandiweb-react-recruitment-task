@@ -15,7 +15,7 @@ export const GridBox = styled.div`
   max-width: 1440px;
   padding: 30px 100px 0 100px;
   @media (max-width: 1440px) {
-    padding: 30px 7vw;
+    padding: 30px 7vw 0 7vw;
   }
   svg,
   button {

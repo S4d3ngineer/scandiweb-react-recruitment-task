@@ -38,8 +38,7 @@ export const Overlay = styled.div`
   right: -20px;
   display: flex;
   flex-direction: column;
-  margin-top: 20px;
-  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  margin-top: 29px;
   width: 325px;
   padding: 32px 16px;
   background-color: white;
