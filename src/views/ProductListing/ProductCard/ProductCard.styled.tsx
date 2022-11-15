@@ -11,8 +11,8 @@ export const PhotoContainer = styled.div`
 `
 
 export const ProductPhoto = styled.img`
-  max-height: 338px;
-  height: 100%;
+  height: 338px;
+  width: 356px;
   object-fit: contain;
 `
 export const Overlay = styled.div`
