@@ -17,32 +17,32 @@ export const CartIcon = styled(Cart)`
 `
 
 export const CounterIcon = styled.div`
-  display: flex;
-  justify-content: center;
   position: absolute;
   z-index: 3;
   top: -7px;
   right: -6px;
+  display: flex;
+  justify-content: center;
+  border-radius: 50%;
   width: 15px;
   height: 15px;
-  color: white;
-  background-color: black;
+  background-color: ${props => props.theme.colors.dark};
   font-size: 11px;
   font-weight: 600;
-  border-radius: 50%;
+  color: white;
 `
 
 export const Overlay = styled.div`
-  display: flex;
-  flex-direction: column;
   position: absolute;
-  background-color: #FFF;
-  width: 325px;
-  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
   z-index: 3;
   right: -20px;
+  display: flex;
+  flex-direction: column;
   margin-top: 20px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  width: 325px;
   padding: 32px 16px;
+  background-color: white;
 `
 
 export const Items = styled.div`
@@ -65,8 +65,8 @@ export const Item = styled.div`
 export const ItemInfo = styled.div`
   display: flex;
   flex-direction: column;
-  width: 120px;
   gap: 8px;
+  width: 120px;
   h5 {
     padding-top: 8px;
   }
@@ -96,22 +96,21 @@ export const AttributeBox = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 14px;
-  font-weight: 400px;
-  border: 1px solid #1D1F22;
+  border: 1px solid ${props => props.theme.colors.dark};
   min-width: 24px;
   height: 24px;
   padding: 2px 4px;
   cursor: default;
+  font-size: 14px;
+  font-weight: 400px;
   &.selected {
-    background-color: black;
+    background-color: ${props => props.theme.colors.dark};
     color: white;
   }
 `
 
-// TODO use theme for #1D1F22 or change it to black
 export const SwatchAttributeBox = styled.div`
-  border: 1px solid #1D1F22;
+  border: 1px solid ${props => props.theme.colors.dark};
   width: 16px;
   height: 16px;
   cursor: default;
@@ -149,9 +148,9 @@ export const ButtonsContainer = styled.div`
 
 export const EventShield = styled.div`
   position: fixed;
-  height: 100%;
-  width: 100%;
   z-index: 2;
   top: 0;
   left: 0;
+  width: 100%;
+  height: 100%;
 `

@@ -17,18 +17,18 @@ export const ProductPhoto = styled.img`
 `
 export const Overlay = styled.div`
   position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
   display: flex;
   justify-content: center;
   align-items: center;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  opacity: 0.5;
   background-color: white;
-  color: #8D8F9A;
+  opacity: 0.5;
   font-size: 24px;
   font-weight: 400;
+  color: #8D8F9A;
 `
 
 export const ProductInfo = styled.div`
@@ -47,15 +47,15 @@ export const Price = styled.div`
 
 export const AddToCartButton = styled.button`
   position: absolute;
-  right: 10px;
   bottom: -15px;
+  right: 10px;
   display: flex;
   justify-content: center;
   align-items: center;
+  border: none;
+  border-radius: 50%; 
   width: 52px;
   height: 52px;
-  border-radius: 50%; 
-  border: none;
   background-color: ${props => props.theme.colors.primary};
   cursor: pointer;
   &:hover {

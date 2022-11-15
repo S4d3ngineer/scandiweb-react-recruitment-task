@@ -16,6 +16,9 @@ export const GlobalStyles = createGlobalStyle`
 
 export const theme = {
   colors: {
-    primary: '#5ECE7B'
+    primary: '#5ECE7B',
+    dark: '#1D1F22',
+    grey: '#EEE',
+    warning: 'red'
   }
 }

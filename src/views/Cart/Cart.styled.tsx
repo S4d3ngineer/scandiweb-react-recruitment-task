@@ -3,13 +3,13 @@ import styled from "styled-components";
 export const Container = styled.div`
   display: flex;
   flex-direction: column;
-  max-width: 1440px; 
   margin: auto;
+  max-width: 1440px; 
   padding: 100px 80px;
   h2 {
+    padding-bottom: 55px;
     font-size: 32px; 
     font-weight: 700;
-    padding-bottom: 55px;
   }
   hr {
     color: #E5E5E5;
@@ -83,22 +83,22 @@ export const AttributeBox = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 14px;
-  font-weight: 400px;
-  border: 1px solid #1D1F22;
+  border: 1px solid ${props => props.theme.colors.dark};
   min-width: 63px;
   height: 45px;
   padding: 2px 4px;
   cursor: default;
+  font-size: 14px;
+  font-family: 'Source Sans Pro';
+  font-weight: 400;
   &.selected {
-    background-color: black;
+    background-color: ${props => props.theme.colors.dark};
     color: white;
   }
 `
 
-// TODO use theme for #1D1F22 or change it to black
 export const SwatchAttributeBox = styled.div`
-  border: 1px solid #1D1F22;
+  border: 1px solid ${props => props.theme.colors.dark};
   width: 36px;
   height: 36px;
   cursor: default;
@@ -129,8 +129,8 @@ export const CountManipulator = styled.div`
 `
 export const SummaryTable = styled.table`
   margin-right: auto;
-  text-align: left;
   padding-top: 32px;
+  text-align: left;
   th, td {
     padding-bottom: 8px;
   }
@@ -138,8 +138,8 @@ export const SummaryTable = styled.table`
     font-weight: 400;
   }
   td {
-    font-weight: 700;
     padding-left: 8px;
+    font-weight: 700;
   }
 `
 

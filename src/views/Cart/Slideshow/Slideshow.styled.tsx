@@ -7,20 +7,17 @@ export const PhotoContainer = styled.div`
 
 export const GalleryButtons = styled.div`
   position: absolute;
-  right: 16px;
   bottom: 16px;
+  right: 16px;
   display: flex;
   gap: 8px;
   button {
-    background-color: rgba(0,0,0,0.6);
-    width: 24px;
-    height: 24px;
     border: none;
     outline: none;
+    width: 24px;
+    height: 24px;
+    background-color: rgba(0,0,0,0.6);
     opacity: 0.5;
-    path {
-      stroke: white;
-    }
     &:hover {
       opacity: 1.0;
     }
@@ -29,6 +26,9 @@ export const GalleryButtons = styled.div`
     }
     .next {
       transform: rotate(270deg);
+    }
+    path {
+      stroke: white;
     }
   }
 `

@@ -1,5 +1,7 @@
 import styled from "styled-components";
 
+const breakpoint = '1440px';
+
 export const Container = styled.div`
   margin: 5vw 0;
 `
@@ -7,11 +9,11 @@ export const Container = styled.div`
 export const HeadingContainer = styled.div`
   display: flex;
   align-self: start;
-  max-width: 1440px;
-  padding-left: 80px;
-  padding-bottom: 5vw;
   margin: 0 auto;
-  @media (max-width: 1440px) {
+  max-width: ${breakpoint};
+  padding-bottom: 5vw;
+  padding-left: 80px;
+  @media (max-width: ${breakpoint}) {
     padding-left: 6vw;
   }
   h2 {
@@ -25,13 +27,13 @@ export const ProductList = styled.div`
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: center;
-  max-width: 1440px;
+  column-gap: calc(0.05 * ${breakpoint});
+  row-gap: calc(0.15 * ${breakpoint});
   margin: 0 auto;
+  max-width: ${breakpoint};
   padding: 0 30px;
-  row-gap: calc(0.15 * 1440px);
-  column-gap: calc(0.05 * 1440px);
-  @media (max-width: 1440px) {
-    row-gap: 15vw;
+  @media (max-width: ${breakpoint}) {
     column-gap: 5vw;
+    row-gap: 15vw;
   }
 ` 
