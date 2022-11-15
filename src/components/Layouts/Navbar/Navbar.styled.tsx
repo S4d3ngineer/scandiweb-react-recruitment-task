@@ -15,7 +15,7 @@ export const GridBox = styled.div`
   max-width: 1440px;
   padding: 30px 100px 0 100px;
   @media (max-width: 1440px) {
-    padding: 30px 7vw 0 7vw;
+    padding: 30px 15vw 0 7vw;
   }
   svg,
   button {
@@ -31,6 +31,9 @@ export const CategoryFilters = styled.div`
     border-bottom-color: ${props => props.theme.colors.primary};
     color: ${props => props.theme.colors.primary};
   }
+  @media (max-width: 500px) {
+    gap: 10px;
+  }
 `
 
 export const CategoryButton = styled.button`
@@ -43,6 +46,9 @@ export const CategoryButton = styled.button`
     border-bottom-color: ${props => props.theme.colors.primary}; 
     color: ${props => props.theme.colors.primary};
   }
+  @media (max-width: 500px) {
+    font-size: 12px;
+  }
 `
 
 export const LogoContainer = styled.div`
@@ -50,8 +56,6 @@ export const LogoContainer = styled.div`
   align-items: flex-start;
   justify-content: center;
 `
-
-// TODO make hamburger
 export const Menu = styled.div`
   display: flex;
   flex-direction: row;

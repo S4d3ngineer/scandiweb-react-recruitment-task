@@ -3,7 +3,12 @@ import styled from "styled-components";
 const breakpoint = '1440px';
 
 export const Container = styled.div`
-  margin: 5vw 0;
+  margin: 100px 0;
+  @media (max-width: 400px) {
+    img {
+      width: 80vw;
+    }
+  }
 `
 
 export const HeadingContainer = styled.div`
@@ -37,3 +42,4 @@ export const ProductList = styled.div`
     row-gap: 15vw;
   }
 ` 
+

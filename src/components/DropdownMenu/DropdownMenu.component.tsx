@@ -6,7 +6,7 @@ interface Props {
   button: React.ReactNode;
   children: React.ReactNode;
   isShown: boolean;
-  onBlur?: any
+  onBlur?: any;
 }
 
 export default class DropdownMenu extends React.Component<Props> {
