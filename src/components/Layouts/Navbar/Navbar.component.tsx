@@ -13,7 +13,7 @@ export interface NavbarProps {
 interface Props extends NavbarProps, WithParamsProps {
 }
 
-class Navbar extends React.Component<Props, {}> {
+class Navbar extends React.Component<Props> {
   renderCategoryFilters = () => {
     return this.props.categories?.map((category: string, index: number) => (
       <NavLink to={'/' + category} key={category + index}>

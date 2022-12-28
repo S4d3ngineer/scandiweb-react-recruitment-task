@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom"; 
+import { useParams } from "react-router-dom";
 
 export interface WithParamsProps {
   params: Record<string, string>;
@@ -7,14 +7,23 @@ export interface WithParamsProps {
 export const withParams = <Props extends WithParamsProps>(
   WrappedComponent: React.ComponentType<Props>
 ) => {
-  return (props: Omit<Props, keyof WithParamsProps>) => {
+  const WrapperComponent: React.FC<Omit<Props, keyof WithParamsProps>> = (
+    props
+  ) => {
     const params = useParams();
 
-    return (
-      <WrappedComponent
-        {...(props as Props)}
-        params={params}
-      />
-    )
-  }
-}
+    return <WrappedComponent {...(props as Props)} params={params} />;
+  };
+
+  WrapperComponent.displayName = `withParams(${getDisplayName(
+    WrappedComponent
+  )})`;
+
+  return WrapperComponent;
+};
+
+const getDisplayName = <Props extends WithParamsProps>(
+  WrappedComponent: React.ComponentType<Props>
+) => {
+  return WrappedComponent.displayName || WrappedComponent.name || "Component";
+};

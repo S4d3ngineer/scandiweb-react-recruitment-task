@@ -2,7 +2,6 @@
 ------ This context is meant to wrapp App component and shoudldn't be reused -------
 */
 
-
 import React from "react";
 import { defaultCurrency } from "utils/constants";
 import { Currency } from "utils/product-data";
@@ -27,43 +26,47 @@ export class CurrencyProvider extends React.Component<Props, State> {
     super(props);
 
     this.state = {
-      currency: this.getSavedCurrency()
-    }
+      currency: this.getSavedCurrency(),
+    };
   }
 
   componentDidUpdate(_: Props, prevState: State) {
     if (this.state.currency !== prevState.currency) {
-      localStorage.setItem('currency', JSON.stringify(this.state.currency));
-    } 
+      localStorage.setItem("currency", JSON.stringify(this.state.currency));
+    }
   }
 
   getSavedCurrency = () => {
-    const currency = localStorage.getItem('currency');
+    const currency = localStorage.getItem("currency");
     return currency ? JSON.parse(currency) : defaultCurrency;
-  }
-  
+  };
+
   setCurrencyAsSelected = (currency: Currency) => {
-      this.setState({
-        currency: currency 
-      })
-  }
+    this.setState({
+      currency: currency,
+    });
+  };
 
   render() {
     const { currency } = this.state;
     const setCurrencyAsSelected = this.setCurrencyAsSelected;
 
     // Pass currency as props so root element can recalculate total cart's price on currency change
-    const childWithProp = React.cloneElement(this.props.children as React.ReactElement<any>, {currency: currency})
+    const childWithProp = React.cloneElement(
+      this.props.children as React.ReactElement,
+      { currency: currency }
+    );
 
-    return(
-      <CurrencyContext.Provider value={{
+    return (
+      <CurrencyContext.Provider
+        value={{
           currency,
-          setCurrencyAsSelected
+          setCurrencyAsSelected,
         }}
       >
         {childWithProp}
       </CurrencyContext.Provider>
-    )
+    );
   }
 }
 

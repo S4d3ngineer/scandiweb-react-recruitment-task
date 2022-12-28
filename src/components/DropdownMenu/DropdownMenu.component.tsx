@@ -6,7 +6,7 @@ interface Props {
   button: React.ReactNode;
   children: React.ReactNode;
   isShown: boolean;
-  onBlur?: any;
+  onBlur?: () => void;
 }
 
 export default class DropdownMenu extends React.Component<Props> {
@@ -24,28 +24,31 @@ export default class DropdownMenu extends React.Component<Props> {
   wrapperRef = React.createRef<HTMLDivElement>();
 
   handleClickOutside = (event: globalThis.MouseEvent) => {
-    if (this.wrapperRef && !this.wrapperRef.current?.contains(event.target as HTMLElement)) {
+    if (
+      this.wrapperRef &&
+      !this.wrapperRef.current?.contains(event.target as HTMLElement)
+    ) {
       event.preventDefault();
-      event.stopPropagation()
-      this.props.onBlur();
+      event.stopPropagation();
+      this.props.onBlur && this.props.onBlur();
     }
-  }
+  };
 
   render() {
     const { button, isShown } = this.props;
 
-    return(
-    <>
-      <S.Dropdown>
-        {button}
-        {isShown && (
-          <S.DropdownContent ref={this.wrapperRef}>
-            {this.props.children}
-          </S.DropdownContent>
-        )}
-      </S.Dropdown>
-      {isShown && <S.EventShield />}
-    </>
-    )
+    return (
+      <>
+        <S.Dropdown>
+          {button}
+          {isShown && (
+            <S.DropdownContent ref={this.wrapperRef}>
+              {this.props.children}
+            </S.DropdownContent>
+          )}
+        </S.Dropdown>
+        {isShown && <S.EventShield />}
+      </>
+    );
   }
 }

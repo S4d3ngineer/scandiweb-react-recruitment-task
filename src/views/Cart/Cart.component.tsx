@@ -15,7 +15,7 @@ interface Props {
   updateCart: UpdateCart;
 }
 
-export default class Cart extends React.Component<Props, {}> {
+export default class Cart extends React.Component<Props> {
   static contextType = CurrencyContext;
   context!: React.ContextType<typeof CurrencyContext>;
 

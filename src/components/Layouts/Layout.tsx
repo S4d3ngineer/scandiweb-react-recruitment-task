@@ -5,7 +5,7 @@ interface Props {
   navbar: React.ReactNode;
 }
 
-export default class Layout extends React.Component<Props, {}> {
+export default class Layout extends React.Component<Props> {
   render() {
     return (
       <React.Fragment>

@@ -16,11 +16,11 @@ interface Currency {
   symbol: string;
 }
 
-export default class CurrencyPicker extends React.Component<{}, State> {
+export default class CurrencyPicker extends React.Component<Record<string, never>, State> {
   state: State = {
     currencies: null,
-    isShown: false
-  }
+    isShown: false,
+  };
 
   componentDidMount() {
     this.getCurrencies();
@@ -32,46 +32,46 @@ export default class CurrencyPicker extends React.Component<{}, State> {
   handleCurrencySelection = (label: Currency) => {
     this.context?.setCurrencyAsSelected(label);
     this.hideMenu();
-  }
+  };
 
   showMenu = () => {
     if (!this.state.isShown) {
       this.setState({
-        isShown: true
-      })
+        isShown: true,
+      });
     }
-  }
+  };
 
   hideMenu = () => {
     if (this.state.isShown) {
       this.setState({
-        isShown: false
-      })
+        isShown: false,
+      });
     }
-  }
+  };
 
   getCurrencies = async () => {
     const response = await client.query({ query: currenciesQuery });
     const currencies = response.data.currencies;
     this.setState({ currencies: currencies });
-  }
+  };
 
   renderCurrencies = (): ReactElement => {
     const currencyOptions = this.state.currencies?.map((currency: Currency) => (
-      <span role="button" key={currency.label} onClick={() => this.handleCurrencySelection(currency)}>
-        {currency.symbol + ' ' + currency.label}
+      <span
+        role="button"
+        key={currency.label}
+        onClick={() => this.handleCurrencySelection(currency)}
+      >
+        {currency.symbol + " " + currency.label}
       </span>
-    ))
-    return (
-      <>
-        {currencyOptions}
-      </>
-    );
-  }
+    ));
+    return <>{currencyOptions}</>;
+  };
 
   render() {
     if (!this.state.currencies) {
-      return null
+      return null;
     }
     return (
       <DropdownMenu
@@ -79,7 +79,7 @@ export default class CurrencyPicker extends React.Component<{}, State> {
           <button onClick={this.showMenu}>
             <S.IconContainer>
               {this.context?.currency.symbol}
-              <Vector className={this.state.isShown ? 'active' : ''} />
+              <Vector className={this.state.isShown ? "active" : ""} />
             </S.IconContainer>
           </button>
         }
@@ -88,6 +88,6 @@ export default class CurrencyPicker extends React.Component<{}, State> {
       >
         {this.renderCurrencies()}
       </DropdownMenu>
-    )
+    );
   }
 }
