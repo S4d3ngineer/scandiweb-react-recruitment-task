@@ -179,6 +179,10 @@ export default class CartOverlay extends React.Component<Props, State> {
       </S.CounterIcon>) :
       null;
 
+    const quantitativeWord = itemCount === 1 ?
+      'item' :
+      'items';
+
     return (
       <S.Container>
         <button onClick={this.showMenu}>
@@ -188,7 +192,7 @@ export default class CartOverlay extends React.Component<Props, State> {
         {isShown &&
           <>
             <S.Overlay ref={this.wrapperRef}>
-              <span><b>My Bag, </b>{itemCount} items</span>
+              <span><b>My Bag, </b>{itemCount} {quantitativeWord}</span>
               <S.Items>
                 {this.renderCartItems()}
               </S.Items>
