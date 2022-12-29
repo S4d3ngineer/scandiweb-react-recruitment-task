@@ -84,7 +84,7 @@ class ProductListing extends React.Component<Props, State> {
     return (
       <S.Container>
         <S.HeadingContainer>
-          <h2>all</h2>
+          <h2>{this.props.params.category}</h2>
         </S.HeadingContainer>
         <S.ProductList>
           {this.renderProductList()}
