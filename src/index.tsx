@@ -13,17 +13,6 @@ export const client = new ApolloClient({
   cache: new InMemoryCache(),
 })
 
-client
-  .query({
-    query: gql`
-      query Category {
-        categories {
-          name
-        }
-      }
-    `,
-  })
-
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
